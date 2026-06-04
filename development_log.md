@@ -1,0 +1,91 @@
+# 2026-06-04
+
+## 프로젝트 시작
+
+- 프로젝트 생성
+- README.md 작성
+- screen_design.md 작성
+- development_log.md 생성 및 작성
+- trades.py 생성
+
+---
+
+## PostgreSQL 설치
+
+### DB 설치
+
+brew install postgresql
+
+### 설치 확인
+
+psql --version
+
+### 설치 완료
+
+psql (PostgreSQL) 15.13 (Homebrew)
+
+### PostgreSQL 실행
+
+brew services start postgresql
+
+### 실행 확인
+
+brew services list
+
+---
+
+## 데이터베이스 생성
+
+### DB 접속
+
+psql postgres
+접속 성공 시
+postgres=#
+
+### 프로젝트용 DB 생성
+
+CREATE DATABASE crypto_lot_tracker;
+
+### 생성 확인
+
+\l
+
+### 프로젝트 DB로 이동
+
+\c crypto_lot_tracker
+
+이동 성공 시
+
+crypto_lot_tracker=#
+
+---
+
+## trades 테이블 생성
+
+거래내역 데이터를 저장하기 위한 첫 번째 테이블 생성
+
+```sql
+CREATE TABLE trades (
+  id SERIAL PRIMARY KEY,
+  coin VARCHAR(20),
+  market VARCHAR(20),
+  trade_type VARCHAR(10),
+  price NUMERIC(20,8),
+  quantity NUMERIC(20,8),
+  fee NUMERIC(20,8),
+  settlement_amount NUMERIC(20,8),
+  executed_at TIMESTAMP
+);
+```
+
+### 컬럼 의미
+
+- id : 거래번호
+- coin : 코인명
+- market : 마켓명
+- trade_type : 매수 / 매도
+- price : 거래단가
+- quantity : 거래수량
+- fee : 수수료
+- settlement_amount : 정산금액
+- executed_at : 체결시간
