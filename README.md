@@ -33,4 +33,4 @@
 ## 개발 로그
 
 - 2026-06-04 : PostgreSQL 설치 및 trades 테이블 생성
-- 2026-06-05 : Python과 PostgreSQL 연결
+- 2026-06-05 : Python 가상 환경 셋팅, Python과 PostgreSQL 연결
