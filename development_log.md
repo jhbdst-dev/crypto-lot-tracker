@@ -1,5 +1,13 @@
 # 2026-06-04
 
+- PostgreSQL 설치 ✅
+- 프로젝트 DB 생성 ✅
+- 컬럼 추가 ✅
+- 거래내역 1건 저장 ✅
+- 거래내역 조회 ✅
+
+---
+
 ## 프로젝트 시작
 
 - 프로젝트 생성
@@ -74,7 +82,8 @@ CREATE TABLE trades (
   quantity NUMERIC(20,8),
   fee NUMERIC(20,8),
   settlement_amount NUMERIC(20,8),
-  executed_at TIMESTAMP
+  executed_at TIMESTAMP,
+  trade_amount NUMERIC(20,8)
 );
 ```
 
@@ -89,3 +98,48 @@ CREATE TABLE trades (
 - fee : 수수료
 - settlement_amount : 정산금액
 - executed_at : 체결시간
+- trade_amount : 거래금액 (추가)
+
+## trades 테이블 수정
+
+### 컬럼 추가
+
+```sql
+ALTER TABLE trades
+ADD COLUMN trade_amount NUMERIC(20,8);
+```
+
+확인하려면
+
+\d trades
+
+### 거래내역 추가
+
+```sql
+INSERT INTO trades (
+    coin,
+    market,
+    trade_type,
+    price,
+    quantity,
+    fee,
+    settlement_amount,
+    executed_at,
+    trade_amount
+)
+VALUES (
+    'XRP',
+    'KRW',
+    'BUY',
+    2000,
+    259.041,
+    259.04,
+    518341,
+    '2026-04-10 15:31:00',
+    518082
+);
+```
+
+### 데이터 조회
+
+SELECT \* FROM trades;
