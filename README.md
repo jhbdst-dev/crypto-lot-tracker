@@ -12,7 +12,7 @@
 
 ---
 
-# 프로젝트를 하게 된 이유
+## 프로젝트를 하게 된 이유
 
 코인 거래를 하다 보면 같은 코인을 여러 번 나눠 매수하는 경우가 많다.
 특히 가격이 하락할 때마다 추가 매수를 하게 되면 거래 횟수가 늘어나고,
@@ -30,7 +30,26 @@
 
 ---
 
+## 필드 설명
+
+### trades
+
+- id : 거래번호
+- coin : 코인명
+- market : 거래 마켓
+- trade_type : 거래 종류 (BUY / SELL)
+- price : 거래단가
+- quantity : 거래수량
+- fee : 수수료
+- settlement_amount : 정산금액
+- executed_at : 체결시간
+- trade_amount : 거래금액
+
+---
+
 ## 개발 로그
 
-- 2026-06-04 : PostgreSQL 설치 및 trades 테이블 생성
-- 2026-06-05 : Python 가상 환경 셋팅, Python과 PostgreSQL 연결
+- 2026-06-04 : PostgreSQL 설치 및 trades 테이블 생성 (터미널 PostgreSQL 사용법)
+- 2026-06-05 : Python 가상 환경 셋팅, Python과 PostgreSQL 연결, DB Test
+
+---

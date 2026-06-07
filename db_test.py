@@ -17,9 +17,13 @@ cur.execute("SELECT * FROM trades")
 # 결과 가져오기
 rows = cur.fetchall()
 
+total_quantity = 0
+
 # 출력
 for row in rows:
-    print(row)
+    total_quantity += row[5]
+
+print(total_quantity)
 
 # 정리
 cur.close()
