@@ -51,5 +51,6 @@
 
 - 2026-06-04 : PostgreSQL 설치 및 trades 테이블 생성 (터미널 PostgreSQL 사용법)
 - 2026-06-05 : Python 가상 환경 셋팅, Python과 PostgreSQL 연결, DB Test
+- 2026-06-08 : 총 보유수량, 총 매수금액, 평균 매수가 계산
 
 ---
