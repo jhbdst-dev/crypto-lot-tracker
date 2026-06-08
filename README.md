@@ -32,7 +32,7 @@
 
 ## 필드 설명
 
-### trades
+### trades (거래내역 데이터)
 
 - id : 거래번호
 - coin : 코인명
@@ -44,6 +44,14 @@
 - settlement_amount : 정산금액
 - executed_at : 체결시간
 - trade_amount : 거래금액
+
+---
+
+### 계산 결과 데이터
+
+- total_quantity : 총 보유수량
+- total_buy_price : 총 매수금액
+- average_buy_price : 평균 매수가
 
 ---
 
