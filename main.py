@@ -5,7 +5,7 @@ from calculator import calculate_asset
 rows = get_trades()
 
 # 외부 기준값 묶음
-current_price = 1770
+current_price = 1859
 
 (total_quantity,
  total_buy_amount,

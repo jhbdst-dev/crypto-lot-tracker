@@ -8,8 +8,18 @@ def calculate_asset(rows, current_price):
 
     for row in rows:
 
-        #거래내역
-        print(f"거래내역: {row}")
+        # 필요한 데이터만 꺼내기
+        coin = row[1]
+        price = row[4]
+        quantity = row[5]
+        trade_amount = row[9]
+
+        print(f"{row[0]} 번째 코인")
+        print(coin)
+        print(price)
+        print(quantity)
+        print(trade_amount)
+
 
         total_quantity += row[5]
         total_buy_amount += row[7]
