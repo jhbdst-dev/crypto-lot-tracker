@@ -14,4 +14,11 @@ def calculate_asset(rows, current_prcie):
     # 평균 매수가
     average_buy_price = total_buy_amount / total_quantity
 
-    return total_quantity, total_buy_amount, average_buy_price
+    # 현재 평가금액
+    current_value = total_quantity * current_prcie
+
+    return (
+        total_quantity,
+        total_buy_amount,
+        average_buy_price,
+        current_value)
