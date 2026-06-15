@@ -1,6 +1,8 @@
-def calculate_asset(rows, current_prcie):
+def calculate_asset(rows, current_price):
     
-    print(f"현재가 = {current_prcie}")
+    # 현재가
+    print(f"현재가 = {current_price}")
+    
     # 총 보유수량
     total_quantity = 0
 
@@ -15,7 +17,7 @@ def calculate_asset(rows, current_prcie):
     average_buy_price = total_buy_amount / total_quantity
 
     # 현재 평가금액
-    current_value = total_quantity * current_prcie
+    current_value = total_quantity * current_price
 
     # 평가손익
     profit_loss = current_value - total_buy_amount

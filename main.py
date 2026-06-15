@@ -5,14 +5,14 @@ from calculator import calculate_asset
 rows = get_trades()
 
 # 외부 기준값 묶음
-current_prcie = 1770
+current_price = 1770
 
 (total_quantity,
  total_buy_amount,
  average_buy_price,
  current_value,
  profit_loss,
- profit_rate) = calculate_asset(rows, current_prcie)
+ profit_rate) = calculate_asset(rows, current_price)
 
 print(f"총 보유수량: {total_quantity:.8f}")
 print(f"총 매수금액: {total_buy_amount:,.0f}원")
