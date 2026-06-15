@@ -7,6 +7,10 @@ def calculate_asset(rows, current_price):
     total_buy_amount = 0
 
     for row in rows:
+
+        #거래내역
+        print(f"거래내역: {row}")
+
         total_quantity += row[5]
         total_buy_amount += row[7]
 
@@ -29,3 +33,4 @@ def calculate_asset(rows, current_price):
         current_value,
         profit_loss,
         profit_rate)
+
