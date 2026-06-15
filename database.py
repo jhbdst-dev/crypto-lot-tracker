@@ -19,6 +19,7 @@ def get_trades():
     # 결과 가져오기
     rows = cur.fetchall()
 
+    # 정리
     cur.close()
     conn.close()
 

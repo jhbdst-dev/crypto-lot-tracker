@@ -1,4 +1,6 @@
-def calculate_asset(rows):
+def calculate_asset(rows, current_prcie):
+    
+    print(f"현재가 = {current_prcie}")
     # 총 보유수량
     total_quantity = 0
 
