@@ -17,8 +17,16 @@ def calculate_asset(rows, current_prcie):
     # 현재 평가금액
     current_value = total_quantity * current_prcie
 
+    # 평가손익
+    profit_loss = current_value - total_buy_amount
+
+    # 수익률
+    profit_rate = (profit_loss / total_buy_amount) * 100
+
     return (
         total_quantity,
         total_buy_amount,
         average_buy_price,
-        current_value)
+        current_value,
+        profit_loss,
+        profit_rate)
