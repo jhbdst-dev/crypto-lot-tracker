@@ -45,8 +45,6 @@
 - executed_at : 체결시간
 - trade_amount : 거래금액
 
----
-
 ### 계산 결과 데이터
 
 - total_quantity : 총 보유수량
@@ -55,6 +53,12 @@
 - current_value : 현재 평가금액
 - profit_loss : 평가손익
 - profit_rate : 수익률
+
+### 거래별 데이터
+
+- value : 거래별 평가금액
+- transaction_profit_loss : 거래별 평가손익
+- transaction_profit_rate : 거래별 수익률
 
 ---
 
