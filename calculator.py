@@ -15,11 +15,12 @@ def calculate_asset(rows, current_price):
         trade_amount = row[9]
 
         print(f"{row[0]} 번째 코인")
-        print(coin)
         print(price)
-        print(quantity)
-        print(trade_amount)
 
+        if current_price > price:
+            print("이익 🟢")
+        else:
+            print("손해 🔴")
 
         total_quantity += row[5]
         total_buy_amount += row[7]
