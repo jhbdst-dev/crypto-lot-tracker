@@ -13,9 +13,11 @@ def calculate_asset(rows, current_price):
         price = row[4]
         quantity = row[5]
         trade_amount = row[9]
+        value = current_price * quantity
 
         print(f"{row[0]} 번째 코인")
-        print(price)
+        print(f"{price:,.0f}원")
+        print(f"평가금액: {value:,.0f}원")
 
         if current_price > price:
             print("이익 🟢")
