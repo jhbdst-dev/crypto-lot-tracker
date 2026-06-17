@@ -1,5 +1,6 @@
 from database import get_trades
 from calculator import calculate_asset
+from decimal import Decimal # decimal으로 만들기
 
 # 거래내역 데이터 저장
 rows = get_trades()
@@ -10,7 +11,7 @@ rows = get_trades()
 current_price = 1800
 
 # 수수료율
-fee_rate = 0.0005
+fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
 
 (total_quantity,
  total_buy_amount,

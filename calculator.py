@@ -13,6 +13,7 @@ def calculate_asset(rows, current_price, fee_rate):
         price = row[4]
         quantity = row[5]
         trade_amount = price * quantity
+        fee_amount = trade_amount * fee_rate
         value = current_price * quantity
         transaction_profit_loss = value - trade_amount
         transaction_profit_rate = (transaction_profit_loss / trade_amount) * 100
@@ -20,6 +21,7 @@ def calculate_asset(rows, current_price, fee_rate):
         print(f"price: {price:,.0f}원")
         print(f"quantity: {quantity:,.8f}개")
         print(f"trade_amount: {trade_amount:,.0f}원")
+        print(f"fee_amount: {fee_amount:,.3f}원")
 
         print("\n" + "=" * 50)
         print(f"{row[0]} 번째 코인")
