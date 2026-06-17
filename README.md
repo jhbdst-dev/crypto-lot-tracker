@@ -62,6 +62,48 @@
 
 ---
 
+## 거래 데이터 계산 흐름
+
+입력 데이터
+
+- price
+- quantity
+- fee_rate
+
+↓
+
+trade_amount 계산
+(price × quantity)
+
+↓
+
+fee_amount 계산
+(trade_amount × fee_rate)
+
+↓
+
+settlement_amount 계산
+(trade_amount + fee_amount)
+
+↓
+
+보유자산 계산
+
+- 총 매수금액
+- 평균 매수가
+- 평가손익
+- 수익률
+
+↓
+
+거래별 손익 계산
+
+- 거래별 평가금액
+- 거래별 평가손익
+- 거래별 수익률
+
+---
+
 ## 파일 구조
 
 database.py : 거래내역 가져오는 파일

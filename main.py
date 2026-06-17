@@ -5,14 +5,19 @@ from calculator import calculate_asset
 rows = get_trades()
 
 # 외부 기준값 묶음
-current_price = 1846
+
+# 현재가
+current_price = 1800
+
+# 수수료율
+fee_rate = 0.0005
 
 (total_quantity,
  total_buy_amount,
  average_buy_price,
  current_value,
  profit_loss,
- profit_rate) = calculate_asset(rows, current_price)
+ profit_rate) = calculate_asset(rows, current_price, fee_rate)
 
 
 print("\n" + "=" * 50)

@@ -1,4 +1,4 @@
-def calculate_asset(rows, current_price):
+def calculate_asset(rows, current_price, fee_rate):
 
     # 총 보유수량
     total_quantity = 0
