@@ -17,34 +17,28 @@ def calculate_asset(rows, current_price, fee_rate):
         trade_amount = price * quantity
         fee_amount = trade_amount * fee_rate
         settlement_amount = trade_amount + fee_amount
-
-        #3. 검산 출력
-        print(f"price: {price:,.0f}원")
-        print(f"quantity: {quantity:,.8f}개")
-        print(f"trade_amount: {trade_amount:,.0f}원")
-        print(f"fee_amount: {fee_amount:,.3f}원")
-        print(f"settlement_amount: {settlement_amount:,.0f}원")
-        print("\n" + "=" * 50)
-        
-        """
         value = current_price * quantity
-        transaction_profit_loss = value - trade_amount
-        transaction_profit_rate = (transaction_profit_loss / trade_amount) * 100
+        transaction_profit_loss = value - settlement_amount
+        transaction_profit_rate = (transaction_profit_loss / settlement_amount) * 100
 
+        #3. 거래별 손익 출력
         print("\n" + "=" * 50)
         print(f"{row[0]} 번째 코인")
-        print(f"{price:,.0f}원")
+        print(f"매수가: {price:,.0f}원")
+        print(f"수량: {quantity:,.8f}개")
+        print(f"거래금액: {trade_amount:,.0f}원")
+        print(f"수수료: {fee_amount:,.3f}원")
+        print(f"정산금액: {settlement_amount:,.0f}원")
         print(f"평가금액: {value:,.0f}원")
         print(f"평가손익: {transaction_profit_loss:,.0f}원")
-        print(f"수익률: {transaction_profit_rate:,.0f}%")
-
-        if current_price > price:
+        print(f"수익률: {transaction_profit_rate:,.2f}%")
+        
+        if transaction_profit_loss > 0:
             print("이익 🟢")
         else:
             print("손해 🔴")
 
         print("=" * 50)
-        """
 
         # 4. 전체 합계 누적
         total_quantity += quantity
