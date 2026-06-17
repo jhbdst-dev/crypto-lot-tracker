@@ -62,6 +62,9 @@ def calculate_asset(rows, current_price, fee_rate):
     # 수익률
     profit_rate = (profit_loss / total_buy_amount) * 100
 
+    print(f"총 보유수량: {total_quantity:,.8f}개")
+    print(f"총 매수금액: {total_buy_amount:,.0f}원")
+
     return (
         total_quantity,
         total_buy_amount,
