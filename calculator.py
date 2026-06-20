@@ -105,17 +105,25 @@ def calculate_sell(
     * sell_quantity
     )
 
+    # 실현손익
+    realized_profit_loss = (
+        sell_settlement_amount
+        - sold_buy_amount
+    )
+
     print(f"매도 거래금액 = {sell_trade_amount}")
     print(f"남은 보유수량 = {remaining_quantity}")
     print(f"매도 수수료 = {sell_fee_amount}")
     print(f"매도 정산금액 = {sell_settlement_amount}")
     print(f"매도한 원가 = {sold_buy_amount}")
+    print(f"실현 손익 = {realized_profit_loss}")
 
     return (
         sell_trade_amount,
         remaining_quantity,
         sell_fee_amount,
         sell_settlement_amount,
-        sold_buy_amount
+        sold_buy_amount,
+        realized_profit_loss
     )
     
