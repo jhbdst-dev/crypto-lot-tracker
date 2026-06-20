@@ -130,15 +130,15 @@ def calculate_sell(
         / remaining_quantity
     )
 
-    print(f"매도 거래금액 = {sell_trade_amount}")
-    print(f"남은 보유수량 = {remaining_quantity}")
-    print(f"매도 수수료 = {sell_fee_amount}")
-    print(f"매도 정산금액 = {sell_settlement_amount}")
-    print(f"매도한 원가 = {sold_buy_amount}")
-    print(f"실현 손익 = {realized_profit_loss}")
-    print(f"실현 수익률 = {realized_profit_rate}")
-    print(f"남은 총 매수금액 = {remaining_buy_amount}")
-    print(f"남은 평균 매수가 = {remaining_average_buy_price}")
+    print(f"매도 거래금액: {sell_trade_amount:,.0f}원")
+    print(f"남은 보유수량: {remaining_quantity:.8f}개")
+    print(f"매도 수수료: {sell_fee_amount:,.3f}원")
+    print(f"매도 정산금액: {sell_settlement_amount:,.0f}원")
+    print(f"매도한 원가: {sold_buy_amount:,.0f}원")
+    print(f"실현 손익: {realized_profit_loss:,.0f}원")
+    print(f"실현 수익률: {realized_profit_rate:.2f}%")
+    print(f"남은 총 매수금액: {remaining_buy_amount:,.0f}원")
+    print(f"남은 평균 매수가: {remaining_average_buy_price:,.2f}원")
 
     return (
         sell_trade_amount,
