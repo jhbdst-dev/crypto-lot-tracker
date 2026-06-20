@@ -60,6 +60,11 @@
 - transaction_profit_loss : 거래별 평가손익
 - transaction_profit_rate : 거래별 수익률
 
+### 매도 데이터
+
+- sell_quantity : 매도 수량
+- sell_price : 매도 가격
+
 ---
 
 ## 거래 데이터 계산 흐름
@@ -177,6 +182,8 @@ PHASE 4 - 서비스 확장
 - [계산 기준 정리] 2026-06-17 : 수수료율 추가, 거래금액/수수료/정산금액 계산, settlement_amount 기준 총 매수금액·평균 매수가·평가손익 계산
 
 ### PHASE2 - 매도 및 실현손익 계산
+
+- 2026-06-21 : 매도수량, 매도가격 변수 추가, calculate_sell()로 전달, 남은 보유수량 계산
 
 ---
 

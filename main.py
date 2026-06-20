@@ -1,14 +1,17 @@
 from database import get_trades
 from calculator import calculate_asset
+from calculator import calculate_sell
 from decimal import Decimal # decimal으로 만들기
 
 # 거래내역 데이터 저장
 rows = get_trades()
 
-# 외부 기준값 묶음
-
 # 현재가
-current_price = 1800
+current_price = 1783
+
+# 매도 수량 및 매도 가격
+sell_quantity = Decimal("237.86869647")
+sell_price = Decimal("2102.0")
 
 # 수수료율
 fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
@@ -20,6 +23,11 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
  profit_loss,
  profit_rate) = calculate_asset(rows, current_price, fee_rate)
 
+remaining_quantity = calculate_sell(
+    total_quantity,
+    sell_quantity,
+    sell_price
+)
 
 print("\n" + "=" * 50)
 print("             현재가")
