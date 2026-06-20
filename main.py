@@ -24,8 +24,8 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
  profit_rate) = calculate_asset(rows, current_price, fee_rate)
 
 (
-    remaining_quantity,
-    sell_trade_amount
+    sell_trade_amount,
+    remaining_quantity
 ) = calculate_sell(
     total_quantity,
     sell_quantity,

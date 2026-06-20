@@ -79,11 +79,11 @@ def calculate_sell(total_quantity, sell_quantity, sell_price):
         - sell_quantity
     )
 
-    print(f"remaining_quantity = {remaining_quantity}")
     print(f"sell_trade_amount = {sell_trade_amount}")
+    print(f"remaining_quantity = {remaining_quantity}")
 
     return (
-        remaining_quantity,
-        sell_trade_amount
+        sell_trade_amount,
+        remaining_quantity
     )
     
