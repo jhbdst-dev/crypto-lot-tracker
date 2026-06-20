@@ -84,13 +84,20 @@ def calculate_sell(total_quantity, sell_quantity, sell_price, fee_rate):
         * fee_rate
     )
 
+    sell_settlement_amount = (
+    sell_trade_amount
+    - sell_fee_amount
+    )
+
     print(f"sell_trade_amount = {sell_trade_amount}")
     print(f"remaining_quantity = {remaining_quantity}")
     print(f"sell_fee_amount = {sell_fee_amount}")
+    print(f"sell_settlement_amount = {sell_settlement_amount}")
 
     return (
         sell_trade_amount,
         remaining_quantity,
-        sell_fee_amount
+        sell_fee_amount,
+        sell_settlement_amount
     )
     

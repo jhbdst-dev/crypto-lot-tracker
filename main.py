@@ -26,7 +26,8 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
 (
     sell_trade_amount,
     remaining_quantity,
-    sell_fee_amount
+    sell_fee_amount,
+    sell_settlement_amount
 ) = calculate_sell(
     total_quantity,
     sell_quantity,
