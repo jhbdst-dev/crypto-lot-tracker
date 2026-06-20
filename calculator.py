@@ -124,6 +124,12 @@ def calculate_sell(
         - sold_buy_amount
     )
 
+    # 남은 평균 매수가
+    remaining_average_buy_price = (
+        remaining_buy_amount
+        / remaining_quantity
+    )
+
     print(f"매도 거래금액 = {sell_trade_amount}")
     print(f"남은 보유수량 = {remaining_quantity}")
     print(f"매도 수수료 = {sell_fee_amount}")
@@ -132,6 +138,7 @@ def calculate_sell(
     print(f"실현 손익 = {realized_profit_loss}")
     print(f"실현 수익률 = {realized_profit_rate}")
     print(f"남은 총 매수금액 = {remaining_buy_amount}")
+    print(f"남은 평균 매수가 = {remaining_average_buy_price}")
 
     return (
         sell_trade_amount,
@@ -141,6 +148,7 @@ def calculate_sell(
         sold_buy_amount,
         realized_profit_loss,
         realized_profit_rate,
-        remaining_buy_amount
+        remaining_buy_amount,
+        remaining_average_buy_price
     )
     

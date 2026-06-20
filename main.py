@@ -31,7 +31,8 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
     sold_buy_amount,
     realized_profit_loss,
     realized_profit_rate,
-    remaining_buy_amount
+    remaining_buy_amount,
+    remaining_average_buy_price
 ) = calculate_sell(
     total_quantity,
     total_buy_amount,
