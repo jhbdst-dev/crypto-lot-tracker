@@ -67,7 +67,7 @@ def calculate_asset(rows, current_price, fee_rate):
         profit_loss,
         profit_rate)
 
-def calculate_sell(total_quantity, sell_quantity, sell_price):
+def calculate_sell(total_quantity, sell_quantity, sell_price, fee_rate):
     
     sell_trade_amount = (
         sell_quantity
@@ -79,11 +79,18 @@ def calculate_sell(total_quantity, sell_quantity, sell_price):
         - sell_quantity
     )
 
+    sell_fee_amount = (
+        sell_trade_amount
+        * fee_rate
+    )
+
     print(f"sell_trade_amount = {sell_trade_amount}")
     print(f"remaining_quantity = {remaining_quantity}")
+    print(f"sell_fee_amount = {sell_fee_amount}")
 
     return (
         sell_trade_amount,
-        remaining_quantity
+        remaining_quantity,
+        sell_fee_amount
     )
     
