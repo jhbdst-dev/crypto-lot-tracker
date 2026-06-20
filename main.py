@@ -27,12 +27,14 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
     sell_trade_amount,
     remaining_quantity,
     sell_fee_amount,
-    sell_settlement_amount
+    sell_settlement_amount,
+    sold_buy_amount
 ) = calculate_sell(
     total_quantity,
     sell_quantity,
     sell_price,
-    fee_rate
+    fee_rate,
+    average_buy_price
 )
 
 print("\n" + "=" * 50)

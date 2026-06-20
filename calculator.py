@@ -67,37 +67,55 @@ def calculate_asset(rows, current_price, fee_rate):
         profit_loss,
         profit_rate)
 
-def calculate_sell(total_quantity, sell_quantity, sell_price, fee_rate):
+def calculate_sell(
+        total_quantity,
+        sell_quantity,
+        sell_price, 
+        fee_rate, 
+        average_buy_price
+        ):
     
+    # 매도 거래금액
     sell_trade_amount = (
         sell_quantity
         * sell_price
     )
 
+    # 남은 보유수량
     remaining_quantity = (
         total_quantity
         - sell_quantity
     )
 
+    # 매도 수수료
     sell_fee_amount = (
         sell_trade_amount
         * fee_rate
     )
 
+    # 매도 정산금액
     sell_settlement_amount = (
     sell_trade_amount
     - sell_fee_amount
     )
 
-    print(f"sell_trade_amount = {sell_trade_amount}")
-    print(f"remaining_quantity = {remaining_quantity}")
-    print(f"sell_fee_amount = {sell_fee_amount}")
-    print(f"sell_settlement_amount = {sell_settlement_amount}")
+    # 매도한 원가
+    sold_buy_amount = (
+    average_buy_price
+    * sell_quantity
+    )
+
+    print(f"매도 거래금액 = {sell_trade_amount}")
+    print(f"남은 보유수량 = {remaining_quantity}")
+    print(f"매도 수수료 = {sell_fee_amount}")
+    print(f"매도 정산금액 = {sell_settlement_amount}")
+    print(f"매도한 원가 = {sold_buy_amount}")
 
     return (
         sell_trade_amount,
         remaining_quantity,
         sell_fee_amount,
-        sell_settlement_amount
+        sell_settlement_amount,
+        sold_buy_amount
     )
     
