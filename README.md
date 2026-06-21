@@ -64,6 +64,15 @@
 
 - sell_quantity : 매도 수량
 - sell_price : 매도 가격
+- sell_trade_amount : 매도 거래금액
+- sell_fee_amount : 매도 수수료
+- sell_settlement_amount : 매도 정산금액
+- sold_buy_amount : 매도한 코인의 원가
+- realized_profit_loss : 실현손익
+- realized_profit_rate : 실현수익률
+- remaining_quantity : 남은 보유수량
+- remaining_buy_amount : 남은 총 매수금액
+- remaining_average_buy_price : 남은 평균 매수가
 
 ---
 
@@ -107,16 +116,32 @@ settlement_amount 계산
 - 거래별 평가손익
 - 거래별 수익률
 
+↓
+
+매도 및 실현손익 계산
+
+- 매도 거래금액
+- 매도 수수료
+- 매도 정산금액
+- 매도 원가
+- 실현손익
+- 실현수익률
+- 남은 보유수량
+- 남은 총 매수금액
+- 남은 평균 매수가
+
 ---
 
 ## 파일 구조
 
-database.py : 거래내역 가져오는 파일
+### database.py : 거래내역 가져오는 파일
 
 - PostgreSQL 연결
 - 거래내역 조회
 
-calculator.py : 숫자 계산하는 파일
+### calculator.py : 숫자 계산하는 파일
+
+#### calculate_asset()
 
 - 총 보유수량 계산
 - 총 매수금액 계산
@@ -125,14 +150,27 @@ calculator.py : 숫자 계산하는 파일
 - 평가손익 계산
 - 수익률 계산
 
-main.py : 전체 실행 순서 조립하는 파일
+#### calculate_sell()
+
+- 매도 거래금액 계산
+- 매도 수수료 계산
+- 매도 정산금액 계산
+- 실현손익 계산
+- 실현수익률 계산
+- 남은 보유수량 계산
+- 남은 총 매수금액 계산
+- 남은 평균 매수가 계산
+
+### main.py : 전체 실행 순서 조립하는 파일
 
 - 거래내역 조회
 - 현재가 입력
-- 자산 계산 요청
-- 보유자산 화면 출력
+- 매도 수량, 매도 가격 입력
+- calculate_asset() 요청
+- calculate_sell() 요청
+- 보유자산 및 매도 결과 화면 출력
 
-db_test.py : 테스트 파일
+### db_test.py : 테스트 파일
 
 - 기능 테스트
 
@@ -183,30 +221,74 @@ PHASE 4 - 서비스 확장
 
 ### PHASE2 - 매도 및 실현손익 계산
 
-- 2026-06-21 : 매도수량, 매도가격 변수 추가, calculate_sell()로 전달, 남은 보유수량 계산, 매도거래 금액 계산, 매도 수수료 계산, 매도 정산금액 계산, 매도한 원가 계산, 실현손익 계산, 실현수익률 계산, 남은 보유수량 계산, 남은 총 매수금액 계산, 남은 평균 매수가 계산
+- [매도 입력] 2026-06-21
+  : sell_quantity, sell_price 추가,
+  calculate_sell() 함수 생성
+
+- [매도 정산] 2026-06-21
+  : sell_trade_amount,
+  sell_fee_amount,
+  sell_settlement_amount 계산
+
+- [실현손익] 2026-06-21
+  : sold_buy_amount,
+  realized_profit_loss,
+  realized_profit_rate 계산
+
+- [남은 자산 재계산] 2026-06-21
+  : remaining_quantity,
+  remaining_buy_amount,
+  remaining_average_buy_price 계산
 
 ---
 
-## PHASE1 계산 흐름
+## PHASE1 - 보유자산 계산 엔진
 
-거래내역 조회
-→
-총 보유수량 계산
-→
-총 매수금액 계산
-→
-평균 매수가 계산
-→
-현재가 입력
-→
-현재 평가금액 계산
-→
-평가손익 계산
-→
-수익률 계산
-→
-보유자산 화면 출력
+1. PostgreSQL에서 거래내역 조회
+2. 현재가(current_price) 입력
+3. 총 보유수량(total_quantity) 계산
+4. 총 매수금액(total_buy_amount) 계산
+5. 평균 매수가(average_buy_price) 계산
+6. 현재 평가금액(current_value) 계산
+7. 평가손익(profit_loss) 계산
+8. 수익률(profit_rate) 계산
+9. 거래별 평가금액(value) 계산
+10. 거래별 평가손익(transaction_profit_loss) 계산
+11. 거래별 수익률(transaction_profit_rate) 계산
+12. 보유자산 및 거래별 손익 화면 출력
 
-### 요약
+## PHASE2 - 매도 및 실현손익 계산
 
-[입력] -> [계산] -> [출력]
+1. 매도 수량(sell_quantity), 매도 가격(sell_price) 입력
+2. calculate_sell() 함수 생성 및 입력값 전달
+3. 매도 거래금액(sell_trade_amount) 계산
+4. 매도 수수료(sell_fee_amount) 계산
+5. 매도 정산금액(sell_settlement_amount) 계산
+6. 평균 매수가 기준 매도 원가(sold_buy_amount) 계산
+7. 실현손익(realized_profit_loss) 계산
+8. 실현수익률(realized_profit_rate) 계산
+9. 남은 보유수량(remaining_quantity) 계산
+10. 남은 총 매수금액(remaining_buy_amount) 계산
+11. 남은 평균 매수가(remaining_average_buy_price) 계산
+12. 매도 결과 화면 출력
+
+## PHASE2.5 - 매도 계산 정리
+
+1. calculate_sell()은 print 없이 return만 하게 정리
+2. main.py에서 매도 결과 화면 출력
+3. README.md에 PHASE2 완료 내용 정리
+4. 2026_06_21.md에 최종 계산 흐름 정리
+
+## PHASE3 - 데이터 구조 정리
+
+1. BUY / SELL 거래내역 구조 통일
+2. DB trades 테이블에 sell 거래도 저장할지 정리
+3. trade_type == "BUY" / "SELL" 기준으로 계산 분기
+4. 지금 하드코딩한 sell_quantity, sell_price를 거래내역 데이터로 옮길 준비
+
+## PHASE4 - Upbit API 연동
+
+1. 현재가 API 가져오기
+2. 보유자산 조회
+3. 체결내역 조회
+4. DB 저장 자동화
