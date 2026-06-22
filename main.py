@@ -61,6 +61,25 @@ for trade in per_trade_results:
     else:
         print("손해 🔴")
 
+
+# 매도 결과
+print("\n" + "=" * 50)
+print("             매도 결과")
+print("=" * 50)
+
+print(f"매도 거래금액: {sell_trade_amount:,.0f}원")
+print(f"매도 수수료: {sell_fee_amount:,.3f}원")
+print(f"매도 정산금액: {sell_settlement_amount:,.0f}원")
+print(f"매도한 원가: {sold_buy_amount:,.0f}원")
+print(f"실현손익: {realized_profit_loss:,.0f}원")
+print(f"실현수익률: {realized_profit_rate:.2f}%")
+print(f"남은 보유수량: {remaining_quantity:.8f}개")
+print(f"남은 총 매수금액: {remaining_buy_amount:,.0f}원")
+print(f"남은 평균 매수가: {remaining_average_buy_price:,.2f}원")
+
+print("=" * 50)
+
+# 현재가
 print("\n" + "=" * 50)
 print("             현재가")
 print("=" * 50)
