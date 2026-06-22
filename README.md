@@ -242,8 +242,6 @@ PHASE 4 - 서비스 확장
 
 ### PHASE2.5 - 계산, 출력 분리
 
-- 2026-06-22 : calculate_asset()에서 print 제거, main.py에서 출력
-
 ---
 
 ## PHASE1 - 보유자산 계산 엔진
@@ -278,10 +276,11 @@ PHASE 4 - 서비스 확장
 
 ## PHASE 2.5 - 계산과 출력 분리
 
-1. calculate_asset()에서 거래별 손익 결과를 return하도록 구조 변경
-2. calculate_sell()에서 매도 결과를 return하도록 구조 변경
-3. calculator.py는 계산만 담당하도록 역할 분리
-4. main.py에서 보유자산 및 매도 결과 출력
+1. calculate_asset()에서 거래별 손익 결과를 per_trade_results 리스트에 저장
+2. calculate_asset()와 calculate_sell()은 계산 결과를 return하도록 구조 변경
+3. calculator.py는 계산 및 데이터 반환만 담당
+4. main.py는 반환된 데이터를 받아 화면 출력만 담당
+5. 거래별 손익 화면과 매도 결과 화면을 main.py에서 출력
 
 ## PHASE3 - 데이터 구조 정리
 
