@@ -219,7 +219,7 @@ PHASE 4 - 서비스 확장
 - [거래별 손익 확인]2026-06-16 : 거래내역 출력, 각 거래에서 필요한 데이터 확인하기, 현재가와 매수가 비교, 거래별 현재 평가금액, 거래별 평가손익, 거래별 수익률 계산, 콘솔 출력
 - [계산 기준 정리] 2026-06-17 : 수수료율 추가, 거래금액/수수료/정산금액 계산, settlement_amount 기준 총 매수금액·평균 매수가·평가손익 계산
 
-### PHASE2 - 매도 및 실현손익 계산
+### PHASE 2 - 매도 및 실현손익 계산
 
 - [매도 입력] 2026-06-21
   : sell_quantity, sell_price 추가,
@@ -239,6 +239,10 @@ PHASE 4 - 서비스 확장
   : remaining_quantity,
   remaining_buy_amount,
   remaining_average_buy_price 계산
+
+### PHASE2.5 - 계산, 출력 분리
+
+- 2026-06-22 : calculate_asset()에서 print 제거, main.py에서 출력
 
 ---
 
@@ -272,12 +276,12 @@ PHASE 4 - 서비스 확장
 11. 남은 평균 매수가(remaining_average_buy_price) 계산
 12. 매도 결과 화면 출력
 
-## PHASE2.5 - 매도 계산 정리
+## PHASE 2.5 - 계산과 출력 분리
 
-1. calculate_sell()은 print 없이 return만 하게 정리
-2. main.py에서 매도 결과 화면 출력
-3. README.md에 PHASE2 완료 내용 정리
-4. 2026_06_21.md에 최종 계산 흐름 정리
+1. calculate_asset()에서 거래별 손익 결과를 return하도록 구조 변경
+2. calculate_sell()에서 매도 결과를 return하도록 구조 변경
+3. calculator.py는 계산만 담당하도록 역할 분리
+4. main.py에서 보유자산 및 매도 결과 출력
 
 ## PHASE3 - 데이터 구조 정리
 
