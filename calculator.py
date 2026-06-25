@@ -9,6 +9,9 @@ def calculate_asset(rows, current_price, fee_rate):
     # 거래별 결과 저장 리스트
     per_trade_results = []
 
+    # 매도 결과 저장 리스트
+    sell_trade_results = []
+
     for row in rows:
 
         # 1. 원본 데이터 꺼내기
@@ -46,7 +49,15 @@ def calculate_asset(rows, current_price, fee_rate):
             })
 
         elif trade_type == "SELL":
-            pass
+            sell_trade_results.append({
+                "id": row[0],
+                "trade_type": trade_type,
+                "price": price,
+                "quantity": quantity,
+                "fee_amount": row[6],
+                "settlement_amount": row[7],
+                "trade_amount": row[9],
+            })
 
     # 평균 매수가
     average_buy_price = total_buy_amount / total_quantity
@@ -67,7 +78,8 @@ def calculate_asset(rows, current_price, fee_rate):
         current_value,
         profit_loss,
         profit_rate,
-        per_trade_results
+        per_trade_results,
+        sell_trade_results
         )
 
 def calculate_sell(

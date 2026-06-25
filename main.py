@@ -22,7 +22,8 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
  current_value,
  profit_loss,
  profit_rate,
- per_trade_results
+ per_trade_results,
+ sell_trade_results
  ) = calculate_asset(rows, current_price, fee_rate)
 
 (
@@ -68,15 +69,15 @@ print("\n" + "=" * 50)
 print("             매도 결과")
 print("=" * 50)
 
-print(f"매도 거래금액: {sell_trade_amount:,.0f}원")
-print(f"매도 수수료: {sell_fee_amount:,.3f}원")
-print(f"매도 정산금액: {sell_settlement_amount:,.0f}원")
-print(f"매도한 원가: {sold_buy_amount:,.0f}원")
-print(f"실현손익: {realized_profit_loss:,.0f}원")
-print(f"실현수익률: {realized_profit_rate:.2f}%")
-print(f"남은 보유수량: {remaining_quantity:.8f}개")
-print(f"남은 총 매수금액: {remaining_buy_amount:,.0f}원")
-print(f"남은 평균 매수가: {remaining_average_buy_price:,.2f}원")
+for sell in sell_trade_results:
+    print("\n" + "=" * 50)
+    print(f"{sell['id']} 번째 매도 거래")
+    print(f"종류: {sell['trade_type']}")
+    print(f"매도가: {sell['price']:,.0f}원")
+    print(f"수량: {sell['quantity']:,.8f}개")
+    print(f"거래금액: {sell['trade_amount']:,.0f}원")
+    print(f"수수료: {sell['fee_amount']:,.3f}원")
+    print(f"정산금액: {sell['settlement_amount']:,.0f}원")
 
 print("=" * 50)
 
