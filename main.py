@@ -47,6 +47,7 @@ fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라
 for trade in per_trade_results:
     print("\n" + "=" * 50)
     print(f"{trade['id']} 번째 코인")
+    print(f"종류: {trade['trade_type']}")
     print(f"매수가: {trade['price']:,.0f}원")
     print(f"수량: {trade['quantity']:,.8f}개")
     print(f"거래금액: {trade['trade_amount']:,.0f}원")

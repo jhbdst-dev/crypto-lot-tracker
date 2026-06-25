@@ -13,33 +13,40 @@ def calculate_asset(rows, current_price, fee_rate):
 
         # 1. 원본 데이터 꺼내기
         coin = row[1]
+        trade_type = row[3]
         price = row[4]
         quantity = row[5]
 
-        # 2. 개별 거래 계산
-        trade_amount = price * quantity
-        fee_amount = trade_amount * fee_rate
-        settlement_amount = trade_amount + fee_amount
-        value = current_price * quantity
-        transaction_profit_loss = value - settlement_amount
-        transaction_profit_rate = (transaction_profit_loss / settlement_amount) * 100
+        if trade_type == "BUY":
+           
+            # 2. 개별 거래 계산
+            trade_amount = price * quantity
+            fee_amount = trade_amount * fee_rate
+            settlement_amount = trade_amount + fee_amount
+            value = current_price * quantity
+            transaction_profit_loss = value - settlement_amount
+            transaction_profit_rate = (transaction_profit_loss / settlement_amount) * 100
 
-        # 3. 전체 합계 누적
-        total_quantity += quantity
-        total_buy_amount += settlement_amount
+            # 3. 전체 합계 누적
+            total_quantity += quantity
+            total_buy_amount += settlement_amount
 
-        # 4. 출력
-        per_trade_results.append({
-        "id": row[0],
-        "price": price,
-        "quantity": quantity,
-        "trade_amount": trade_amount,
-        "fee_amount": fee_amount,
-        "settlement_amount": settlement_amount,
-        "value": value,
-        "profit_loss": transaction_profit_loss,
-        "profit_rate": transaction_profit_rate
-        })
+            # 4. 출력
+            per_trade_results.append({
+            "id": row[0],
+            "trade_type": trade_type,
+            "price": price,
+            "quantity": quantity,
+            "trade_amount": trade_amount,
+            "fee_amount": fee_amount,
+            "settlement_amount": settlement_amount,
+            "value": value,
+            "profit_loss": transaction_profit_loss,
+            "profit_rate": transaction_profit_rate
+            })
+
+        elif trade_type == "SELL":
+            pass
 
     # 평균 매수가
     average_buy_price = total_buy_amount / total_quantity
