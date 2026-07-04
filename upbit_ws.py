@@ -25,8 +25,7 @@ def watch_current_price(rows, fee_rate):
         current_price = Decimal(str(data["trade_price"]))
 
         if current_price != previous_price:
-            calculate_asset(rows, current_price, fee_rate)
+            result = calculate_asset(rows, current_price, fee_rate)
             previous_price = current_price
     
-        result = calculate_asset(rows, current_price, fee_rate)
         print(result)
