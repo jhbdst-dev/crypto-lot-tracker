@@ -2,20 +2,20 @@ from database import get_trades
 from calculator import calculate_asset
 from calculator import calculate_sell
 from decimal import Decimal # decimal으로 만들기
-from upbit_ws import get_current_price
+from upbit_ws import watch_current_price
 
 # 거래내역 데이터 저장
 rows = get_trades()
 
+# 수수료율
+fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
+
 # 현재가
-current_price = get_current_price()
+current_price = watch_current_price(rows, fee_rate)
 
 # 매도 수량 및 매도 가격
 sell_quantity = Decimal("237.86869647")
 sell_price = Decimal("2102.0")
-
-# 수수료율
-fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
 
 (total_quantity,
  total_buy_amount,
