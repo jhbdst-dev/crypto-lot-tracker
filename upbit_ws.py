@@ -12,12 +12,16 @@ def get_current_price():
     # 구독 요청
     ws.send('[{"ticket":"test"},{"type":"ticker","codes":["KRW-XRP"]}]')
 
-    # 현재가 수신
-    data = ws.recv()
-    data = json.loads(data)
+    previous_price = None
 
-    current_price = Decimal(str(data["trade_price"]))
+    while True:
+        data = ws.recv()
+        data = json.loads(data)
 
-    print(current_price)
+        current_price = Decimal(str(data["trade_price"]))
 
+        if current_price != previous_price:
+            print(current_price)
+            previous_price = current_price
+    
     return current_price
