@@ -2,12 +2,13 @@ from database import get_trades
 from calculator import calculate_asset
 from calculator import calculate_sell
 from decimal import Decimal # decimal으로 만들기
+from upbit_ws import get_current_price
 
 # 거래내역 데이터 저장
 rows = get_trades()
 
 # 현재가
-current_price = 1783
+current_price = get_current_price()
 
 # 매도 수량 및 매도 가격
 sell_quantity = Decimal("237.86869647")
