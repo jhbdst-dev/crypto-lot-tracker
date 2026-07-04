@@ -1,4 +1,5 @@
 import websocket
+import json
 
 # WebSocket 연결 객체 생성
 ws = websocket.WebSocket()
@@ -11,5 +12,8 @@ ws.send('[{"ticket":"test"},{"type":"ticker","codes":["KRW-XRP"]}]')
 
 # 현재가 수신
 data = ws.recv()
+data = json.loads(data)
 
-print(data)
+current_price = data["trade_price"]
+
+print(current_price)
