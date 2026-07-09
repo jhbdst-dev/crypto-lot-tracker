@@ -4,6 +4,9 @@ from calculator import calculate_sell
 from decimal import Decimal # decimal으로 만들기
 from upbit_ws import watch_current_price
 
+# 출력
+from printer import print_per_trade_results
+
 # 거래내역 데이터 저장
 rows = get_trades()
 
@@ -46,23 +49,8 @@ sell_price = Decimal("2102.0")
     average_buy_price
 )
 
-for trade in per_trade_results:
-    print("\n" + "=" * 50)
-    print(f"{trade['id']} 번째 코인")
-    print(f"종류: {trade['trade_type']}")
-    print(f"매수가: {trade['price']:,.0f}원")
-    print(f"수량: {trade['quantity']:,.8f}개")
-    print(f"거래금액: {trade['trade_amount']:,.0f}원")
-    print(f"수수료: {trade['fee_amount']:,.3f}원")
-    print(f"정산금액: {trade['settlement_amount']:,.0f}원")
-    print(f"평가금액: {trade['value']:,.0f}원")
-    print(f"평가손익: {trade['profit_loss']:,.0f}원")
-    print(f"수익률: {trade['profit_rate']:,.2f}%")
-
-    if trade['profit_loss'] > 0:
-        print("이익 🟢")
-    else:
-        print("손해 🔴")
+# 개별 거래 내역
+print_per_trade_results(per_trade_results)
 
 
 # 매도 결과
