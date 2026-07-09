@@ -47,3 +47,21 @@ def print_asset_summary(
     print(f"수익률: {profit_rate:.2f}%")
 
     print("=" * 50)
+
+# 매도 출력
+def print_sell_trade_results(sell_trade_results):
+    print("\n" + "=" * 50)
+    print("             매도 결과")
+    print("=" * 50)
+
+    for sell in sell_trade_results:
+        print("\n" + "=" * 50)
+        print(f"{sell['id']} 번째 매도 거래")
+        print(f"종류: {sell['trade_type']}")
+        print(f"매도가: {sell['price']:,.0f}원")
+        print(f"수량: {sell['quantity']:,.8f}개")
+        print(f"거래금액: {sell['trade_amount']:,.0f}원")
+        print(f"수수료: {sell['fee_amount']:,.3f}원")
+        print(f"정산금액: {sell['settlement_amount']:,.0f}원")
+
+    print("=" * 50)
