@@ -1,3 +1,4 @@
+# 개별 거래 내역
 def print_per_trade_results(per_trade_results):
 
     for trade in per_trade_results:
@@ -17,3 +18,12 @@ def print_per_trade_results(per_trade_results):
             print("이익 🟢")
         else:
             print("손해 🔴")
+
+
+
+# 현재가 출력
+def print_current_price(current_price):
+    print("\n" + "=" * 50)
+    print("             현재가")
+    print("=" * 50)
+    print(f"현재가: {current_price}")

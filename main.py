@@ -6,6 +6,7 @@ from upbit_ws import watch_current_price
 
 # 출력
 from printer import print_per_trade_results
+from printer import print_current_price
 
 # 거래내역 데이터 저장
 rows = get_trades()
@@ -52,6 +53,8 @@ sell_price = Decimal("2102.0")
 # 개별 거래 내역
 print_per_trade_results(per_trade_results)
 
+# 현재가 출력
+print_current_price(current_price)
 
 # 매도 결과
 print("\n" + "=" * 50)
@@ -69,14 +72,6 @@ for sell in sell_trade_results:
     print(f"정산금액: {sell['settlement_amount']:,.0f}원")
 
 print("=" * 50)
-
-# 현재가
-print("\n" + "=" * 50)
-print("             현재가")
-print("=" * 50)
-
-# 현재가
-print(f"현재가: {current_price}")
 
 print("\n" + "=" * 50)
 print("             보유자산 화면")
