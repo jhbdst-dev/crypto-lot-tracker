@@ -1,3 +1,32 @@
+def calculate_buy(row, current_price, fee_rate):
+
+    # 1. 원본 데이터 꺼내기
+    trade_type = row[3]
+    price = row[4]
+    quantity = row[5]
+
+    # 2. 개별 거래 계산
+    trade_amount = price * quantity
+    fee_amount = trade_amount * fee_rate
+    settlement_amount = trade_amount + fee_amount
+    value = current_price * quantity
+    transaction_profit_loss = value - settlement_amount
+    transaction_profit_rate = (transaction_profit_loss / settlement_amount) * 100
+
+
+    return {
+    "id": row[0],
+    "trade_type": trade_type,
+    "price": price,
+    "quantity": quantity,
+    "trade_amount": trade_amount,
+    "fee_amount": fee_amount,
+    "settlement_amount": settlement_amount,
+    "value": value,
+    "profit_loss": transaction_profit_loss,
+    "profit_rate": transaction_profit_rate
+    }
+
 def calculate_asset(rows, current_price, fee_rate):
 
     # 총 보유수량
@@ -14,46 +43,24 @@ def calculate_asset(rows, current_price, fee_rate):
 
     for row in rows:
 
-        # 1. 원본 데이터 꺼내기
-        coin = row[1]
         trade_type = row[3]
-        price = row[4]
-        quantity = row[5]
 
         if trade_type == "BUY":
-           
-            # 2. 개별 거래 계산
-            trade_amount = price * quantity
-            fee_amount = trade_amount * fee_rate
-            settlement_amount = trade_amount + fee_amount
-            value = current_price * quantity
-            transaction_profit_loss = value - settlement_amount
-            transaction_profit_rate = (transaction_profit_loss / settlement_amount) * 100
-
+            buy_result = calculate_buy(row, current_price, fee_rate)
+            
             # 3. 전체 합계 누적
-            total_quantity += quantity
-            total_buy_amount += settlement_amount
+            total_quantity += buy_result["quantity"]
+            total_buy_amount += buy_result["settlement_amount"]
 
             # 4. 출력
-            per_trade_results.append({
-            "id": row[0],
-            "trade_type": trade_type,
-            "price": price,
-            "quantity": quantity,
-            "trade_amount": trade_amount,
-            "fee_amount": fee_amount,
-            "settlement_amount": settlement_amount,
-            "value": value,
-            "profit_loss": transaction_profit_loss,
-            "profit_rate": transaction_profit_rate
-            })
+            per_trade_results.append(buy_result)
 
         elif trade_type == "SELL":
             sell_trade_results.append({
                 "id": row[0],
                 "trade_type": trade_type,
-                "price": price,
-                "quantity": quantity,
+                "price": row[4],
+                "quantity": row[5],
                 "fee_amount": row[6],
                 "settlement_amount": row[7],
                 "trade_amount": row[9],
