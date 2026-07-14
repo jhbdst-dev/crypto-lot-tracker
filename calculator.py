@@ -90,14 +90,27 @@ def calculate_asset(rows, current_price, fee_rate):
         )
 
 def calculate_sell(
-        total_quantity,
-        total_buy_amount,
+        selected_trade,
         sell_quantity,
-        sell_price, 
-        fee_rate, 
-        average_buy_price
+        sell_price,
+        fee_rate
         ):
     
+    # 선택한 거래 데이터
+    selected_quantity = selected_trade["quantity"]
+    selected_settlement_amount = selected_trade["settlement_amount"]
+    
+    # 선택한 거래의 1개당 실제 매수원가
+    selected_buy_unit_cost = (
+        selected_settlement_amount
+        / selected_quantity
+    )
+
+    print(
+        "1개당 실제 매수원가:",
+        selected_buy_unit_cost
+    )
+
     # 매도 거래금액
     sell_trade_amount = (
         sell_quantity
@@ -106,7 +119,7 @@ def calculate_sell(
 
     # 남은 보유수량
     remaining_quantity = (
-        total_quantity
+        selected_quantity
         - sell_quantity
     )
 
@@ -124,7 +137,7 @@ def calculate_sell(
 
     # 매도한 원가
     sold_buy_amount = (
-    average_buy_price
+    selected_buy_unit_cost
     * sell_quantity
     )
 
@@ -142,7 +155,7 @@ def calculate_sell(
 
     # 남은 총 매수금액
     remaining_buy_amount = (
-        total_buy_amount
+        selected_settlement_amount
         - sold_buy_amount
     )
 
