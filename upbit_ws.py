@@ -18,9 +18,11 @@ def watch_current_price(rows, fee_rate):
     ws.send('[{"ticket":"test"},{"type":"ticker","codes":["KRW-XRP"]}]')
     print("구독 요청 완료")
 
+    # 이전 가격 (현재 가격과 비교 위해)
     previous_price = None
 
     while True:
+
         data = ws.recv()
         # print("데이터 수신")
 
@@ -48,6 +50,7 @@ def watch_current_price(rows, fee_rate):
                 average_buy_price,
                 current_value,
                 profit_loss,
-                profit_rate
+                profit_rate,
+                per_trade_results
             )
                 

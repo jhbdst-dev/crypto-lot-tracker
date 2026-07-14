@@ -74,7 +74,8 @@ def print_realtime_asset(
     average_buy_price,
     current_value,
     profit_loss,
-    profit_rate
+    profit_rate,
+    per_trade_results
 ):
     print("\n" + "=" * 50)
     print("실시간 보유자산")
@@ -87,3 +88,24 @@ def print_realtime_asset(
     print(f"평가손익: {profit_loss:,.0f}원")
     print(f"수익률: {profit_rate:.2f}%")
     print("=" * 50)
+
+    print("\n[개별 매수 거래]")
+
+    for result in per_trade_results:
+
+        if result["profit_loss"] > 0:
+            status = "🟢"
+        elif result["profit_loss"] < 0:
+            status = "🔴"
+        else:
+            status = "⚪"
+
+        print(
+            f"{status} 거래 ID: {result['id']} | "
+            f"현재가: {current_price:,.0f}원 | "
+            f"매수가: {result['price']:,.0f}원 | "
+            f"수량: {result['quantity']:.8f} | "
+            f"평가금액: {result['value']:,.0f}원 | "
+            f"평가손익: {result['profit_loss']:,.0f}원 | "
+            f"수익률: {result['profit_rate']:.2f}%"
+        )
