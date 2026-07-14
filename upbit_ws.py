@@ -1,10 +1,10 @@
 import websocket
 import json
 from decimal import Decimal
-from calculator import calculate_asset
+from calculator import calculate_asset, calculate_sell
 
-# 현재가 출력 함수
-from printer import print_realtime_asset
+# 현재가 출력 함수, 예상 결과 출력
+from printer import print_realtime_asset, print_sell_preview
 
 # 거래 ID 입력, 매도 예정 가격 입력
 from sell_manager import select_buy_trade, input_sell_plan
@@ -68,6 +68,36 @@ def watch_current_price(rows, fee_rate):
                     print("\n[매도 예정 정보]")
                     print(f"매도 예정가: {sell_price:,.0f}원")
                     print(f"매도 예정수량: {sell_quantity:.8f}")
+
+                    (
+                        sell_trade_amount,
+                        remaining_quantity,
+                        sell_fee_amount,
+                        sell_settlement_amount,
+                        sold_buy_amount,
+                        realized_profit_loss,
+                        realized_profit_rate,
+                        remaining_buy_amount,
+                        remaining_average_buy_price
+                    ) = calculate_sell(
+                        selected_trade,
+                        sell_quantity,
+                        sell_price,
+                        fee_rate
+                    )
+
+                    # 예상 매도 출력
+                    print_sell_preview(
+                        selected_trade,
+                        sell_price,
+                        sell_quantity,
+                        sell_fee_amount,
+                        sell_settlement_amount,
+                        realized_profit_loss,
+                        realized_profit_rate,
+                        remaining_quantity
+                    )
+
 
                 trade_selected = True
 

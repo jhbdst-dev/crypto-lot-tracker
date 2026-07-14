@@ -109,3 +109,38 @@ def print_realtime_asset(
             f"평가손익: {result['profit_loss']:,.0f}원 | "
             f"수익률: {result['profit_rate']:.2f}%"
         )
+
+# 예상 결과 출력
+def print_sell_preview(
+        selected_trade,
+        sell_price,
+        sell_quantity,
+        sell_fee_amount,
+        sell_settlement_amount,
+        realized_profit_loss,
+        realized_profit_rate,
+        remaining_quantity
+        ):
+
+    if realized_profit_loss > 0:
+        status = "🟢"
+    elif realized_profit_loss < 0:
+        status = "🔴"
+    else:
+        status = "⚪"
+
+    print("\n" + "=" * 50)
+    print("예상 매도 결과")
+    print("=" * 50)
+
+    print(f"{status} 선택 거래 ID: {selected_trade['id']}")
+    print(f"선택한 매수가: {selected_trade['price']:,.0f}원")
+    print(f"매도 예정가: {sell_price:,.0f}원")
+    print(f"매도 예정수량: {sell_quantity:.8f}")
+    print(f"예상 수수료: {sell_fee_amount:,.0f}원")
+    print(f"예상 정산금액: {sell_settlement_amount:,.0f}원")
+    print(f"예상 실현손익: {realized_profit_loss:,.0f}원")
+    print(f"예상 실현수익률: {realized_profit_rate:.2f}%")
+    print(f"매도 후 남은 수량: {remaining_quantity:.8f}")
+
+    print("=" * 50)
