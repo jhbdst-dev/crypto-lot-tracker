@@ -6,7 +6,11 @@ from calculator import calculate_asset
 # 현재가 출력 함수
 from printer import print_realtime_asset
 
+# 거래 ID 목록 출력
+from sell_manager import select_buy_trade
+
 def watch_current_price(rows, fee_rate):
+
     # WebSocket 연결 객체 생성
     ws = websocket.WebSocket()
 
@@ -20,6 +24,7 @@ def watch_current_price(rows, fee_rate):
 
     # 이전 가격 (현재 가격과 비교 위해)
     previous_price = None
+    trade_selected = False
 
     while True:
 
@@ -40,8 +45,24 @@ def watch_current_price(rows, fee_rate):
                 per_trade_results,
                 sell_trade_results
             ) = calculate_asset(rows, current_price, fee_rate)
+            
             previous_price = current_price
             
+            # 매도할 매수 거래 선택
+            if not trade_selected:
+                selected_trade = select_buy_trade(per_trade_results)
+
+                if selected_trade is None:
+                    print("존재하지 않는 거래 ID입니다.")
+
+                else:
+                    print("\n[선택한 거래]")
+                    print(f"거래 ID: {selected_trade['id']}")
+                    print(f"매수가: {selected_trade['price']:,.0f}원")
+                    print(f"보유수량: {selected_trade['quantity']:.8f}")
+
+                trade_selected = True
+
             # 현재가 출력 함수
             print_realtime_asset(
                 current_price,
