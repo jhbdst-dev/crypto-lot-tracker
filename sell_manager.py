@@ -11,15 +11,21 @@ def select_buy_trade(per_trade_results):
             f"보유수량: {result['quantity']:.8f}"
         )
 
-    selected_trade_id = int(
-        input("\n매도할 거래 ID를 입력하세요: ")
-    )
+    while True:
+        try:
+            selected_trade_id = int(
+                input("\n매도할 거래 ID를 입력하세요: ")
+            )
 
-    for result in per_trade_results:
-        if result["id"] == selected_trade_id:
-            return result
+        except ValueError:
+            print("거래 ID는 숫자로 입력해주세요.")
+            continue
 
-    return None
+        for result in per_trade_results:
+            if result["id"] == selected_trade_id:
+                return result
+
+        print("존재하지 않는 거래 ID입니다. 다시 입력해주세요.")
 
 def input_sell_plan(selected_trade):
     while True:
