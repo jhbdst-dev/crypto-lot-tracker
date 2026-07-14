@@ -1,3 +1,5 @@
+from decimal import Decimal, InvalidOperation
+
 def select_buy_trade(per_trade_results):
 
     print("\n[매도할 매수 거래 선택]")
@@ -18,3 +20,40 @@ def select_buy_trade(per_trade_results):
             return result
 
     return None
+
+def input_sell_plan(selected_trade):
+    while True:
+        try:
+            sell_price = Decimal(
+                input("매도 예정 가격을 입력하세요: ")
+            )
+
+            if sell_price <= 0:
+                print("매도 가격은 0보다 커야 합니다.")
+                continue
+
+            break
+
+        except InvalidOperation:
+            print("숫자로 입력해주세요.")
+
+    while True:
+        try:
+            sell_quantity = Decimal(
+                input("매도 예정 수량을 입력하세요: ")
+            )
+
+            if sell_quantity <= 0:
+                print("매도 수량은 0보다 커야 합니다.")
+                continue
+
+            if sell_quantity > selected_trade["quantity"]:
+                print("보유수량보다 많이 매도할 수 없습니다.")
+                continue
+
+            break
+
+        except InvalidOperation:
+            print("숫자로 입력해주세요.")
+
+    return sell_price, sell_quantity

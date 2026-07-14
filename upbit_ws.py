@@ -6,8 +6,8 @@ from calculator import calculate_asset
 # 현재가 출력 함수
 from printer import print_realtime_asset
 
-# 거래 ID 목록 출력
-from sell_manager import select_buy_trade
+# 거래 ID 입력, 매도 예정 가격 입력
+from sell_manager import select_buy_trade, input_sell_plan
 
 def watch_current_price(rows, fee_rate):
 
@@ -60,6 +60,14 @@ def watch_current_price(rows, fee_rate):
                     print(f"거래 ID: {selected_trade['id']}")
                     print(f"매수가: {selected_trade['price']:,.0f}원")
                     print(f"보유수량: {selected_trade['quantity']:.8f}")
+
+                    sell_price, sell_quantity = input_sell_plan(
+                        selected_trade
+                    )
+
+                    print("\n[매도 예정 정보]")
+                    print(f"매도 예정가: {sell_price:,.0f}원")
+                    print(f"매도 예정수량: {sell_quantity:.8f}")
 
                 trade_selected = True
 
