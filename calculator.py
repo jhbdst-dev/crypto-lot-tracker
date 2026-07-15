@@ -15,6 +15,28 @@ def parse_trade_row(row):
         "created_at": row[12],
     }
 
+def calculate_trade_quantities(rows):
+    coin_totals = {}
+
+    for row in rows:
+        market = row[2]
+        side = row[3]
+        quantity = row[8]
+
+        if market not in coin_totals:
+            coin_totals[market] = {
+                "buy_quantity": 0,
+                "sell_quantity": 0,
+            }
+
+        if side == "bid":
+            coin_totals[market]["buy_quantity"] += quantity
+
+        elif side == "ask":
+            coin_totals[market]["sell_quantity"] += quantity
+
+    return coin_totals
+
 def calculate_buy(row, current_price, fee_rate):
 
     # 1. 원본 데이터 꺼내기

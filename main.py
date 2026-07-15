@@ -1,17 +1,25 @@
 from database import get_trades
-from calculator import calculate_asset
-from calculator import calculate_sell
+from calculator import calculate_asset, calculate_sell, calculate_trade_quantities
 from decimal import Decimal # decimal으로 만들기
 from upbit_ws import watch_current_price
 
 # 출력
-from printer import print_per_trade_results
-from printer import print_current_price
-from printer import print_asset_summary
-from printer import print_sell_trade_results
+from printer import print_per_trade_results, print_current_price, print_asset_summary, print_sell_trade_results
 
 # 거래내역 데이터 저장
 rows = get_trades()
+
+coin_totals = calculate_trade_quantities(rows)
+# print(coin_totals)
+
+"""
+for market, totals in coin_totals.items():
+    print(
+        market,
+        "매수:", totals["buy_quantity"],
+        "매도:", totals["sell_quantity"],
+    )
+"""
 
 # 수수료율
 fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
