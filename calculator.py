@@ -1,3 +1,20 @@
+def parse_trade_row(row):
+    return {
+        "id": row[0],
+        "uuid": row[1],
+        "market": row[2],
+        "side": row[3],
+        "ord_type": row[4],
+        "state": row[5],
+        "price": row[6],
+        "volume": row[7],
+        "executed_volume": row[8],
+        "executed_funds": row[9],
+        "paid_fee": row[10],
+        "trades_count": row[11],
+        "created_at": row[12],
+    }
+
 def calculate_buy(row, current_price, fee_rate):
 
     # 1. 원본 데이터 꺼내기
