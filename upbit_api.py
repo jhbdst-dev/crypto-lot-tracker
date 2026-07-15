@@ -8,6 +8,7 @@ import requests
 from dotenv import load_dotenv
 
 import json
+from database import save_trades
 
 load_dotenv()
 
@@ -53,5 +54,12 @@ response = requests.get(
 )
 
 print("상태 코드:", response.status_code)
-print("응답 내용:", response.json())
+
+if response.status_code == 200:
+    trades = response.json()
+    save_trades(trades)
+    print(f"{len(trades)}건 저장 시도")
+else:
+    print(response.json())
+
 print(json.dumps(response.json(), indent=4, ensure_ascii=False))

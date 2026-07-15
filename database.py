@@ -31,7 +31,7 @@ def get_trades():
     return rows
 
 def save_trades(trades):
-    
+
     # DB 연결
     conn = connect_db()
 
@@ -40,4 +40,46 @@ def save_trades(trades):
 
     # 거래 하나씩 저장
     for trade in trades:
-        pass
+
+        cur.execute(
+            """
+            INSERT INTO trades (
+                uuid,
+                market,
+                side,
+                ord_type,
+                state,
+                price,
+                volume,
+                executed_volume,
+                executed_funds,
+                paid_fee,
+                trades_count,
+                created_at
+            )
+            VALUES (
+                %s, %s, %s, %s, %s,
+                %s, %s, %s, %s, %s,
+                %s, %s
+            )
+            """,
+            (
+                trade["uuid"],
+                trade["market"],
+                trade["side"],
+                trade["ord_type"],
+                trade["state"],
+                trade["price"],
+                trade["volume"],
+                trade["executed_volume"],
+                trade["executed_funds"],
+                trade["paid_fee"],
+                trade["trades_count"],
+                trade["created_at"],
+            )
+        )
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
