@@ -7,6 +7,7 @@ import jwt
 import requests
 from dotenv import load_dotenv
 
+import json
 
 load_dotenv()
 
@@ -53,3 +54,4 @@ response = requests.get(
 
 print("상태 코드:", response.status_code)
 print("응답 내용:", response.json())
+print(json.dumps(response.json(), indent=4, ensure_ascii=False))
