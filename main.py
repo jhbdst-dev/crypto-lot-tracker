@@ -1,5 +1,5 @@
 from database import get_trades
-from calculator import calculate_asset, calculate_sell, calculate_trade_quantities
+from calculator import calculate_asset, calculate_sell, calculate_trade_quantities, calculate_current_holdings
 from decimal import Decimal # decimal으로 만들기
 from upbit_ws import watch_current_price
 
@@ -20,6 +20,15 @@ for market, totals in coin_totals.items():
         "매도:", totals["sell_quantity"],
     )
 """
+
+current_holdings = calculate_current_holdings(coin_totals)
+
+for market, quantity in current_holdings.items():
+    print(
+        market,
+        "현재 보유수량:",
+        quantity,
+    )
 
 # 수수료율
 fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 

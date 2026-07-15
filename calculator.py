@@ -37,6 +37,20 @@ def calculate_trade_quantities(rows):
 
     return coin_totals
 
+def calculate_current_holdings(coin_totals):
+    current_holdings = {}
+
+    for market, totals in coin_totals.items():
+        buy_quantity = totals["buy_quantity"]
+        sell_quantity = totals["sell_quantity"]
+
+        holding_quantity = buy_quantity - sell_quantity
+
+        if holding_quantity > 0:
+            current_holdings[market] = holding_quantity
+
+    return current_holdings
+
 def calculate_buy(row, current_price, fee_rate):
 
     # 1. 원본 데이터 꺼내기

@@ -25,7 +25,7 @@ last_trade_time = get_last_trade_time()
 
 if last_trade_time is None:
     start_time = datetime(
-        year=2025,
+        year=2021,
         month=1,
         day=1,
         tzinfo=KST,
