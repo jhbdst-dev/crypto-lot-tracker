@@ -40,6 +40,8 @@ def save_trades(trades):
 
     # 거래 하나씩 저장
     for trade in trades:
+        if trade["executed_volume"] == "0":
+            continue
 
         cur.execute(
             """

@@ -41,13 +41,15 @@ while start_time < now:
     )
 
     params = {
-        "state": "done",
+        "states[]": ["done", "cancel"],
         "start_time": start_time.isoformat(),
         "end_time": end_time.isoformat(),
-        "limit": 100,
+        "limit": 1000,
     }
 
-    query_string = unquote(urlencode(params))
+    query_string = unquote(
+    urlencode(params, doseq=True)
+    )
 
     query_hash = hashlib.sha512(
         query_string.encode("utf-8")
