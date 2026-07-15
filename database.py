@@ -62,6 +62,7 @@ def save_trades(trades):
                 %s, %s, %s, %s, %s,
                 %s, %s
             )
+            ON CONFLICT (uuid) DO NOTHING
             """,
             (
                 trade["uuid"],
@@ -69,17 +70,39 @@ def save_trades(trades):
                 trade["side"],
                 trade["ord_type"],
                 trade["state"],
-                trade["price"],
-                trade["volume"],
+                trade.get("price"),
+                trade.get("volume"),
                 trade["executed_volume"],
                 trade["executed_funds"],
                 trade["paid_fee"],
-                trade["trades_count"],
+                trade.get("trades_count", 0),
                 trade["created_at"],
-            )
+            )            
         )
 
     conn.commit()
 
     cur.close()
     conn.close()
+
+def get_last_trade_time():
+    # DB 연결
+    conn = connect_db()
+
+    # SQL 실행 준비
+    cur = conn.cursor()
+
+    # 가장 최근 거래 시간 조회
+    cur.execute(
+        """
+        SELECT MAX(created_at)
+        FROM trades
+        """
+    )
+
+    last_trade_time = cur.fetchone()[0]
+
+    cur.close()
+    conn.close()
+
+    return last_trade_time
