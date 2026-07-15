@@ -5,6 +5,8 @@ import jwt
 import requests
 from dotenv import load_dotenv
 
+from decimal import Decimal
+
 
 load_dotenv()
 
@@ -14,22 +16,45 @@ SECRET_KEY = os.getenv("UPBIT_SECRET_KEY")
 BASE_URL = "https://api.upbit.com"
 PATH = "/v1/accounts"
 
-payload = {
-    "access_key": ACCESS_KEY,
-    "nonce": str(uuid.uuid4()),
-}
+def create_headers():
+    payload = {
+        "access_key": ACCESS_KEY,
+        "nonce": str(uuid.uuid4()),
+    }
 
-jwt_token = jwt.encode(payload, SECRET_KEY)
+    jwt_token = jwt.encode(payload, SECRET_KEY)
 
-headers = {
-    "Authorization": f"Bearer {jwt_token}",
-}
+    return {
+        "Authorization": f"Bearer {jwt_token}",
+    }
 
-response = requests.get(
-    BASE_URL + PATH,
-    headers=headers,
-    timeout=10,
-)
+def get_account_assets():
+    response = requests.get(
+        BASE_URL + PATH,
+        headers=create_headers(),
+        timeout=10,
+    )
 
-print("상태 코드:", response.status_code)
-print(response.json())
+    if response.status_code != 200:
+        raise RuntimeError(response.json())
+
+    accounts = response.json()
+
+    assets = {}
+
+    for account in accounts:
+        currency = account["currency"]
+
+        if currency == "KRW":
+            continue
+
+        balance = Decimal(account["balance"])
+        locked = Decimal(account["locked"])
+        avg_buy_price = Decimal(account["avg_buy_price"])
+
+        assets[f"KRW-{currency}"] = {
+            "quantity": balance + locked,
+            "average_buy_price": avg_buy_price,
+        }
+
+    return assets

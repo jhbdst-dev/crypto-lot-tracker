@@ -2,6 +2,7 @@ from database import get_trades
 from calculator import calculate_asset, calculate_sell, calculate_trade_quantities, calculate_current_holdings
 from decimal import Decimal # decimal으로 만들기
 from upbit_ws import watch_current_price
+from upbit_accounts import get_account_assets
 
 # 출력
 from printer import print_per_trade_results, print_current_price, print_asset_summary, print_sell_trade_results
@@ -30,6 +31,15 @@ for market, quantity in current_holdings.items():
         quantity,
     )
 
+assets = get_account_assets()
+
+for market, asset in assets.items():
+    print(
+        market,
+        "보유수량:", asset["quantity"],
+        "평균 매수가:", asset["average_buy_price"],
+    )
+
 # 수수료율
 fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
 
@@ -39,6 +49,7 @@ current_price = watch_current_price(rows, fee_rate)
 # 매도 수량 및 매도 가격
 sell_quantity = Decimal("237.86869647")
 sell_price = Decimal("2102.0")
+
 
 (total_quantity,
  total_buy_amount,
