@@ -1,7 +1,11 @@
 import websocket
 import json
 from decimal import Decimal
-from calculator import calculate_asset, calculate_sell
+from calculator import (
+    calculate_asset,
+    calculate_sell,
+    filter_trades_by_market,
+)
 
 # 현재가 출력 함수, 예상 결과 출력
 from printer import print_realtime_asset, print_sell_preview
@@ -10,6 +14,13 @@ from printer import print_realtime_asset, print_sell_preview
 from sell_manager import select_buy_trade, input_sell_plan
 
 def watch_current_price(rows, fee_rate):
+
+    market = "KRW-XRP"
+
+    market_rows = filter_trades_by_market(
+        rows,
+        market
+    )
 
     # WebSocket 연결 객체 생성
     ws = websocket.WebSocket()
@@ -44,7 +55,7 @@ def watch_current_price(rows, fee_rate):
                 profit_rate,
                 per_trade_results,
                 sell_trade_results
-            ) = calculate_asset(rows, current_price, fee_rate)
+            ) = calculate_asset(market_rows, current_price, fee_rate)
             
             previous_price = current_price
             

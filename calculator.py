@@ -250,3 +250,11 @@ def calculate_sell(
         remaining_average_buy_price
     )
     
+def filter_trades_by_market(rows, market):
+    market_rows = []
+
+    for row in rows:
+        if row[2] == market:
+            market_rows.append(row)
+
+    return market_rows
