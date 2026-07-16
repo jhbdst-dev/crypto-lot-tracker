@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 def parse_trade_row(row):
     return {
         "id": row[0],
@@ -228,10 +230,13 @@ def calculate_sell(
     )
 
     # 남은 평균 매수가
-    remaining_average_buy_price = (
-        remaining_buy_amount
-        / remaining_quantity
-    )
+    if remaining_quantity == 0:
+        remaining_average_buy_price = Decimal("0")
+    else:
+        remaining_average_buy_price = (
+            remaining_buy_amount
+            / remaining_quantity
+        )
 
     return (
         sell_trade_amount,
