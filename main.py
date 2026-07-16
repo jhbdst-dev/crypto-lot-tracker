@@ -44,7 +44,7 @@ for market, asset in assets.items():
 fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 
 
 # 현재가
-current_price = watch_current_price(rows, fee_rate)
+current_price = watch_current_price(rows, fee_rate, assets)
 
 # 매도 수량 및 매도 가격
 sell_quantity = Decimal("237.86869647")

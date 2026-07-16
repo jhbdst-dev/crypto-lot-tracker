@@ -13,14 +13,9 @@ from printer import print_realtime_asset, print_sell_preview
 # 거래 ID 입력, 매도 예정 가격 입력
 from sell_manager import select_buy_trade, input_sell_plan
 
-def watch_current_price(rows, fee_rate):
+def watch_current_price(rows, fee_rate, assets):
 
-    market = "KRW-XRP"
-
-    market_rows = filter_trades_by_market(
-        rows,
-        market
-    )
+    markets = list(assets.keys())
 
     # WebSocket 연결 객체 생성
     ws = websocket.WebSocket()
@@ -30,7 +25,15 @@ def watch_current_price(rows, fee_rate):
     print("업비트 WebSocket 연결 완료")
 
     # 구독 요청
-    ws.send('[{"ticket":"test"},{"type":"ticker","codes":["KRW-XRP"]}]')
+    subscribe_data = [
+        {"ticket": "asset-tracker"},
+        {
+            "type": "ticker",
+            "codes": markets,
+        },
+    ]
+
+    ws.send(json.dumps(subscribe_data))
     print("구독 요청 완료")
 
     # 이전 가격 (현재 가격과 비교 위해)
@@ -43,7 +46,14 @@ def watch_current_price(rows, fee_rate):
         # print("데이터 수신")
 
         data = json.loads(data)
+
+        market = data["code"]
         current_price = Decimal(str(data["trade_price"]))
+
+        market_rows = filter_trades_by_market(
+            rows,
+            market
+        )
 
         if current_price != previous_price:
             (
