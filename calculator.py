@@ -53,31 +53,40 @@ def calculate_current_holdings(coin_totals):
 
 def calculate_buy(row, current_price, fee_rate):
 
-    # 1. 원본 데이터 꺼내기
-    trade_type = row[3]
-    price = row[4]
-    quantity = row[5]
+    trade_type = "BUY"
 
-    # 2. 개별 거래 계산
-    trade_amount = price * quantity
-    fee_amount = trade_amount * fee_rate
+    quantity = row[8]
+    trade_amount = row[9]
+    fee_amount = row[10]
+
+    # 시장가 주문은 row[6]의 가격이 없을 수 있으므로
+    # 실제 체결금액 ÷ 체결수량으로 매수가 계산
+    price = trade_amount / quantity
+
     settlement_amount = trade_amount + fee_amount
     value = current_price * quantity
-    transaction_profit_loss = value - settlement_amount
-    transaction_profit_rate = (transaction_profit_loss / settlement_amount) * 100
 
+    transaction_profit_loss = (
+        value - settlement_amount
+    )
+
+    transaction_profit_rate = (
+        transaction_profit_loss
+        / settlement_amount
+    ) * 100
 
     return {
-    "id": row[0],
-    "trade_type": trade_type,
-    "price": price,
-    "quantity": quantity,
-    "trade_amount": trade_amount,
-    "fee_amount": fee_amount,
-    "settlement_amount": settlement_amount,
-    "value": value,
-    "profit_loss": transaction_profit_loss,
-    "profit_rate": transaction_profit_rate
+        "id": row[0],
+        "market": row[2],
+        "trade_type": trade_type,
+        "price": price,
+        "quantity": quantity,
+        "trade_amount": trade_amount,
+        "fee_amount": fee_amount,
+        "settlement_amount": settlement_amount,
+        "value": value,
+        "profit_loss": transaction_profit_loss,
+        "profit_rate": transaction_profit_rate,
     }
 
 def calculate_asset(rows, current_price, fee_rate):
@@ -98,7 +107,7 @@ def calculate_asset(rows, current_price, fee_rate):
 
         trade_type = row[3]
 
-        if trade_type == "BUY":
+        if trade_type == "bid":
             buy_result = calculate_buy(row, current_price, fee_rate)
             
             # 3. 전체 합계 누적
@@ -108,16 +117,22 @@ def calculate_asset(rows, current_price, fee_rate):
             # 4. 출력
             per_trade_results.append(buy_result)
 
-        elif trade_type == "SELL":
+        elif trade_type == "ask":
             sell_trade_results.append({
                 "id": row[0],
-                "trade_type": trade_type,
-                "price": row[4],
-                "quantity": row[5],
-                "fee_amount": row[6],
-                "settlement_amount": row[7],
+                "market": row[2],
+                "trade_type": "SELL",
+                "price": row[9] / row[8],
+                "quantity": row[8],
                 "trade_amount": row[9],
+                "fee_amount": row[10],
+                "settlement_amount": row[9] - row[10],
             })
+
+    if total_quantity == 0:
+        raise ValueError(
+            "매수 거래가 없어 자산을 계산할 수 없습니다."
+        )
 
     # 평균 매수가
     average_buy_price = total_buy_amount / total_quantity
