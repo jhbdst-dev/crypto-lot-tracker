@@ -66,50 +66,6 @@ def print_sell_trade_results(sell_trade_results):
 
     print("=" * 50)
 
-# 현재가 출력
-def print_realtime_asset(
-    current_price,
-    total_quantity,
-    total_buy_amount,
-    average_buy_price,
-    current_value,
-    profit_loss,
-    profit_rate,
-    per_trade_results
-):
-    print("\n" + "=" * 50)
-    print("실시간 보유자산")
-    print("=" * 50)
-    print(f"현재가: {current_price:,.0f}원")
-    print(f"총 보유수량: {total_quantity:.8f}")
-    print(f"총 매수금액: {total_buy_amount:,.0f}원")
-    print(f"평균 매수가: {average_buy_price:,.2f}원")
-    print(f"현재 평가금액: {current_value:,.0f}원")
-    print(f"평가손익: {profit_loss:,.0f}원")
-    print(f"수익률: {profit_rate:.2f}%")
-    print("=" * 50)
-
-    print("\n[개별 매수 거래]")
-
-    for result in per_trade_results:
-
-        if result["profit_loss"] > 0:
-            status = "🟢"
-        elif result["profit_loss"] < 0:
-            status = "🔴"
-        else:
-            status = "⚪"
-
-        print(
-            f"{status} 거래 ID: {result['id']} | "
-            f"현재가: {current_price:,.0f}원 | "
-            f"매수가: {result['price']:,.0f}원 | "
-            f"수량: {result['quantity']:.8f} | "
-            f"평가금액: {result['value']:,.0f}원 | "
-            f"평가손익: {result['profit_loss']:,.0f}원 | "
-            f"수익률: {result['profit_rate']:.2f}%"
-        )
-
 # 예상 결과 출력
 def print_sell_preview(
         selected_trade,
@@ -144,3 +100,84 @@ def print_sell_preview(
     print(f"매도 후 남은 수량: {remaining_quantity:.8f}")
 
     print("=" * 50)
+
+# 코인별 보유자산 출력
+def print_coin_asset(
+    current_price,
+    total_quantity,
+    total_buy_amount,
+    average_buy_price,
+    current_value,
+    profit_loss,
+    profit_rate
+):
+    if profit_loss > 0:
+        status = "🟢"
+    elif profit_loss < 0:
+        status = "🔴"
+    else:
+        status = "⚪"
+
+    print("\n" + "=" * 50)
+    print("코인별 보유자산")
+    print("=" * 50)
+    print(f"현재가: {current_price:,.0f}원")
+    print(f"총 보유수량: {total_quantity:.8f}")
+    print(f"총 매수금액: {total_buy_amount:,.0f}원")
+    print(f"평균 매수가: {average_buy_price:,.2f}원")
+    print(f"현재 평가금액: {current_value:,.0f}원")
+    print(f"{status} 평가손익: {profit_loss:,.0f}원")
+    print(f"{status} 수익률: {profit_rate:.2f}%")
+    print("=" * 50)
+
+# 개별 코인 매수 거래 출력
+def print_buy_trades(
+    current_price,
+    per_trade_results
+):
+    print("\n[개별 매수 거래]")
+
+    for result in per_trade_results:
+
+        if result["profit_loss"] > 0:
+            status = "🟢"
+        elif result["profit_loss"] < 0:
+            status = "🔴"
+        else:
+            status = "⚪"
+
+        print(
+            f"{status} 거래 ID: {result['id']} | "
+            f"현재가: {current_price:,.0f}원 | "
+            f"매수가: {result['price']:,.0f}원 | "
+            f"수량: {result['quantity']:.8f} | "
+            f"평가금액: {result['value']:,.0f}원 | "
+            f"평가손익: {result['profit_loss']:,.0f}원 | "
+            f"수익률: {result['profit_rate']:.2f}%"
+        )
+
+# 실시간 자산 전체 출력
+def print_realtime_asset(
+    current_price,
+    total_quantity,
+    total_buy_amount,
+    average_buy_price,
+    current_value,
+    profit_loss,
+    profit_rate,
+    per_trade_results
+):
+    print_coin_asset(
+        current_price,
+        total_quantity,
+        total_buy_amount,
+        average_buy_price,
+        current_value,
+        profit_loss,
+        profit_rate
+    )
+
+    print_buy_trades(
+        current_price,
+        per_trade_results
+    )
