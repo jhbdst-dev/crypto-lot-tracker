@@ -1,11 +1,11 @@
-from database import get_trades
-from calculator import calculate_asset, calculate_sell, calculate_trade_quantities, calculate_current_holdings, filter_trades_by_market
+from backend.database import get_trades
+from backend.calculator import calculate_asset, calculate_sell, calculate_trade_quantities, calculate_current_holdings, filter_trades_by_market
 from decimal import Decimal # decimal으로 만들기
-from upbit_ws import watch_current_price
-from upbit_accounts import get_account_assets
+from backend.upbit_ws import watch_current_price
+from backend.upbit_accounts import get_account_assets
 
 # 출력
-from printer import print_per_trade_results, print_current_price, print_asset_summary, print_sell_trade_results
+from backend.printer import print_per_trade_results, print_current_price, print_asset_summary, print_sell_trade_results
 
 # 거래내역 데이터 저장
 rows = get_trades()

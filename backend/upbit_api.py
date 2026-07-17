@@ -7,7 +7,7 @@ import jwt
 import requests
 from dotenv import load_dotenv
 
-from database import save_trades, get_last_trade_time
+from backend.database import save_trades, get_last_trade_time
 from datetime import datetime, timedelta, timezone
 
 load_dotenv()
