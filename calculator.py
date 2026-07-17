@@ -105,21 +105,51 @@ def calculate_asset(rows, current_price, fee_rate):
     # 매도 결과 저장 리스트
     sell_trade_results = []
 
+    remaining_buy_lots = calculate_remaining_buy_lots(rows)
+
+    for lot in remaining_buy_lots:
+        row = lot["row"]
+        remaining_quantity = lot["remaining_quantity"]
+
+        buy_result = calculate_buy(
+            row,
+            current_price,
+            fee_rate
+        )
+
+        # 원래 매수수량 대신 매도 후 남은 수량 적용
+        original_quantity = buy_result["quantity"]
+
+        quantity_ratio = (
+            remaining_quantity
+            / original_quantity
+        )
+
+        buy_result["quantity"] = remaining_quantity
+        buy_result["trade_amount"] *= quantity_ratio
+        buy_result["fee_amount"] *= quantity_ratio
+        buy_result["settlement_amount"] *= quantity_ratio
+        buy_result["value"] = (
+            current_price
+            * remaining_quantity
+        )
+        buy_result["profit_loss"] = (
+            buy_result["value"]
+            - buy_result["settlement_amount"]
+        )
+        buy_result["profit_rate"] = (
+            buy_result["profit_loss"]
+            / buy_result["settlement_amount"]
+        ) * 100
+
+        total_quantity += buy_result["quantity"]
+        total_buy_amount += buy_result["settlement_amount"]
+
+        per_trade_results.append(buy_result)
+
+    # 실제 매도 거래내역 저장
     for row in rows:
-
-        trade_type = row[3]
-
-        if trade_type == "bid":
-            buy_result = calculate_buy(row, current_price, fee_rate)
-            
-            # 3. 전체 합계 누적
-            total_quantity += buy_result["quantity"]
-            total_buy_amount += buy_result["settlement_amount"]
-
-            # 4. 출력
-            per_trade_results.append(buy_result)
-
-        elif trade_type == "ask":
+        if row[3] == "ask":
             sell_trade_results.append({
                 "id": row[0],
                 "market": row[2],
@@ -258,3 +288,48 @@ def filter_trades_by_market(rows, market):
             market_rows.append(row)
 
     return market_rows
+
+def calculate_remaining_buy_lots(rows):
+    # 거래를 오래된 순서대로 정렬
+    sorted_rows = sorted(
+        rows,
+        key=lambda row: row[12]
+    )
+
+    buy_lots = []
+
+    for row in sorted_rows:
+        side = row[3]
+        quantity = row[8]
+
+        # 매수 거래 저장
+        if side == "bid":
+            buy_lots.append({
+                "row": row,
+                "remaining_quantity": quantity,
+            })
+
+        # 매도 수량을 오래된 매수 거래부터 차감
+        elif side == "ask":
+            sell_quantity = quantity
+
+            for lot in buy_lots:
+                if sell_quantity <= 0:
+                    break
+
+                remaining_quantity = lot["remaining_quantity"]
+
+                if remaining_quantity <= sell_quantity:
+                    sell_quantity -= remaining_quantity
+                    lot["remaining_quantity"] = Decimal("0")
+
+                else:
+                    lot["remaining_quantity"] -= sell_quantity
+                    sell_quantity = Decimal("0")
+
+    # 수량이 남아 있는 매수 거래만 반환
+    return [
+        lot
+        for lot in buy_lots
+        if lot["remaining_quantity"] > 0
+    ]

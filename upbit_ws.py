@@ -48,6 +48,10 @@ def watch_current_price(rows, fee_rate, assets):
         data = json.loads(data)
 
         market = data["code"]
+
+        if market != "KRW-BTC":
+            continue
+        
         current_price = Decimal(str(data["trade_price"]))
 
         market_rows = filter_trades_by_market(

@@ -167,6 +167,7 @@ def print_realtime_asset(
     profit_rate,
     per_trade_results
 ):
+    """
     print_coin_asset(
         current_price,
         total_quantity,
@@ -177,7 +178,9 @@ def print_realtime_asset(
         profit_rate
     )
 
+
     print_buy_trades(
         current_price,
         per_trade_results
     )
+    """

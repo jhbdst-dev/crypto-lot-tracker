@@ -1,5 +1,5 @@
 from database import get_trades
-from calculator import calculate_asset, calculate_sell, calculate_trade_quantities, calculate_current_holdings
+from calculator import calculate_asset, calculate_sell, calculate_trade_quantities, calculate_current_holdings, filter_trades_by_market
 from decimal import Decimal # decimal으로 만들기
 from upbit_ws import watch_current_price
 from upbit_accounts import get_account_assets
@@ -12,6 +12,18 @@ rows = get_trades()
 
 coin_totals = calculate_trade_quantities(rows)
 # print(coin_totals)
+
+btc_rows = filter_trades_by_market(rows, "KRW-BTC")
+
+print("\n[BTC 전체 거래내역]")
+
+for row in sorted(btc_rows, key=lambda row: row[12]):
+    print(
+        row[12],
+        row[3],
+        "수량:", row[8],
+        "체결금액:", row[9],
+    )
 
 """
 for market, totals in coin_totals.items():
