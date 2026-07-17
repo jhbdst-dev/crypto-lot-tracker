@@ -52,8 +52,14 @@ def get_account_assets():
         locked = Decimal(account["locked"])
         avg_buy_price = Decimal(account["avg_buy_price"])
 
+        quantity = balance + locked
+
+        # 현재 보유수량이 없는 코인은 제외
+        if quantity <= 0:
+            continue
+
         assets[f"KRW-{currency}"] = {
-            "quantity": balance + locked,
+            "quantity": quantity,
             "average_buy_price": avg_buy_price,
         }
 
