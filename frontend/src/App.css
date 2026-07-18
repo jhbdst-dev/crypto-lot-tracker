@@ -1,0 +1,17 @@
+body {
+  background-color: #4c4c4c;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app {
+  width: 100%;
+  max-width: 600px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #ffffff;
+}

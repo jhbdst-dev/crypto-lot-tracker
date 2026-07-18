@@ -1,6 +1,10 @@
+import './App.css'
+
 function App() {
   return (
-    <h1>Crypto Lot Tracker</h1>
+    <div className="app">
+      <h1>Crypto Lot Tracker</h1>
+    </div>
   )
 }
 
