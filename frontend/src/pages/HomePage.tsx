@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom"
+import "./HomePage.css"
 
 function HomePage() {
     return (
-        <main>
-            <h1>내 보유 자산</h1>
+        <main className="home-page">
+            <header className="home-header">
+                <h1 className="home-header__title">
+                    내 보유 자산
+                </h1>
 
-            <Link to="/coins/BTC">
-                BTC 상세로 이동
-            </Link>
+                <button
+                    className="home-header__refresh-button"
+                    type="button"
+                    aria-label="자산 정보 새로고침"
+                >
+                    ↻
+                </button>
+            </header>
         </main>
     )
 }
