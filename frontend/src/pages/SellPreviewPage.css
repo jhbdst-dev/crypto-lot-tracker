@@ -1,0 +1,305 @@
+/* Sell Preview 화면 */
+
+/* Sell Preview 헤더 */
+.sell-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 32px;
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.back-button,
+.refresh-button {
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid #d9dce5;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+/* 선택한 매수 거래 정보 카드 */
+
+.selected-trade-card {
+    margin-bottom: 32px;
+    padding: 20px;
+
+    background: #fffdf4;
+    border: 1px solid #f3e7b3;
+    border-radius: 12px;
+}
+
+.selected-trade-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.selected-trade-coin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.selected-trade-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+    background: #f7931a;
+    color: white;
+    font-weight: 700;
+}
+
+.selected-trade-id {
+    padding: 4px 10px;
+
+    border-radius: 8px;
+    background: #f3f4f6;
+
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.selected-trade-card__body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.selected-trade-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.selected-trade-item span {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.selected-trade-item strong {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+
+/* 매도 정보 입력 영역 */
+.sell-input-section {
+    margin-top: 24px;
+    padding: 20px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.sell-input-section__title {
+    margin-bottom: 20px;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.sell-input-group + .sell-input-group {
+    margin-top: 24px;
+}
+
+.sell-input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.sell-input-field {
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+.sell-input-field input {
+    flex: 1;
+    min-width: 0;
+
+    padding: 12px 14px;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.sell-input-field span {
+    padding: 0 14px;
+
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sell-input-help {
+    margin-top: 8px;
+
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.sell-input-help strong {
+    color: #ef4444;
+}
+
+.sell-quantity-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.sell-quantity-buttons button {
+    padding: 10px 8px;
+
+    border: none;
+    border-radius: 8px;
+    background: #f3f4f6;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+
+    cursor: pointer;
+}
+
+.sell-quantity-buttons__all {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+
+.sell-quantity-buttons button:hover {
+    opacity: 0.9;
+}
+
+.sell-quantity-buttons button:active {
+    transform: scale(0.98);
+}
+
+
+/* 예상 매도 결과 영역 */
+.sell-result-section {
+    margin-top: 24px;
+}
+
+.sell-result-section__title {
+    margin-bottom: 16px;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.sell-result-card {
+    padding: 20px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.sell-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.sell-result-item + .sell-result-item {
+    margin-top: 14px;
+}
+
+.sell-result-item span {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.sell-result-item strong {
+    flex-shrink: 0;
+
+    color: #111827;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.sell-result-item--settlement span,
+.sell-result-item--settlement strong {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.sell-result-item .profit {
+    color: #ef4444;
+}
+
+.sell-result-divider {
+    height: 1px;
+    margin: 20px 0;
+
+    background: #e5e7eb;
+}
+
+/* 버튼 */
+.save-sell-plan-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.save-sell-plan-button:hover {
+    opacity: 0.9;
+}
+
+.save-sell-plan-button:active {
+    transform: scale(0.99);
+}
