@@ -1,4 +1,5 @@
 import "./HomePage.css"
+import { Link } from "react-router-dom"
 
 function HomePage() {
     return (
@@ -60,7 +61,8 @@ function HomePage() {
             </section>
 
 
-            <section className="coin-card">
+            <Link className="coin-card"
+                to="/coins/BTC">
 
                 <div className="coin-card__header">
 
@@ -113,9 +115,10 @@ function HomePage() {
 
                 </div>
 
-            </section>
+            </Link>
             
-            <section className="coin-card">
+            <Link className="coin-card"
+                to="/coins/XRP">
 
                 <div className="coin-card__header">
 
@@ -168,9 +171,10 @@ function HomePage() {
 
                 </div>
 
-            </section>
+            </Link>
 
-            <section className="coin-card">
+            <Link className="coin-card"
+                to="/coins/ETH">
 
                 <div className="coin-card__header">
 
@@ -223,7 +227,7 @@ function HomePage() {
 
                 </div>
 
-            </section>
+            </Link>
         
         </main>
     )
