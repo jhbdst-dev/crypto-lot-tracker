@@ -5,7 +5,7 @@ function HomePage() {
     return (
         <main className="home-page">
 
-
+            {/* 헤더 */}
             <header className="home-header">
                 <h1 className="home-header__title">
                     내 보유 자산
@@ -19,7 +19,7 @@ function HomePage() {
                 </button>
             </header>
 
-
+            {/* 총 평가금액 */}
             <section className="asset-summary">
                 <p className="asset-summary__label">
                     총 평가금액
@@ -46,7 +46,7 @@ function HomePage() {
                 </div>
             </section>
 
-            
+            {/* 보유 코인 목록 */}    
             <section className="coin-list">
                 <div className="coin-list__header">
                     <h2>보유 코인 목록</h2>
@@ -60,7 +60,7 @@ function HomePage() {
                 </div>
             </section>
 
-
+            {/* 비트코인 */}
             <Link className="coin-card"
                 to="/coins/BTC">
 
@@ -117,6 +117,7 @@ function HomePage() {
 
             </Link>
             
+            {/* 리플 */}
             <Link className="coin-card"
                 to="/coins/XRP">
 
@@ -173,6 +174,7 @@ function HomePage() {
 
             </Link>
 
+            {/* 이더리움 */}
             <Link className="coin-card"
                 to="/coins/ETH">
 

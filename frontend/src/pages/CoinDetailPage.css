@@ -1,0 +1,214 @@
+.coin-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px;
+}
+
+/* coin-summary-card */
+.coin-summary-card {
+    margin-top: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+/* coin-summary-card-top */
+.coin-summary-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.coin-summary-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.coin-summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    background: #f7931a;
+
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.coin-summary-name h2 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.coin-summary-price {
+    text-align: right;
+}
+
+.coin-summary-price span {
+    display: block;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.coin-summary-price strong {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.coin-summary-price p {
+    margin-top: 5px;
+
+    color: #ef4444;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* coin-summary-card-body */
+.coin-summary-card__body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 40px;
+
+    padding: 24px;
+}
+
+.summary-item span {
+    display: block;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.summary-item strong {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.summary-item .profit {
+    color: #ef4444;
+}
+
+/* 개별 매수 거래 목록 */
+.trade-list {
+    margin-top: 24px;
+}
+
+.trade-list__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.trade-list__sort-button {
+    border: none;
+    background: none;
+    color: #6b7280;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 개별 매수 거래 카드 */
+.trade-card {
+    margin-top: 12px;
+    padding: 16px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.trade-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+.trade-card__header time {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.trade-card__id {
+    padding: 4px 8px;
+
+    border-radius: 6px;
+    background: #f3f4f6;
+
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.trade-card__body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 24px;
+}
+
+.trade-item span {
+    display: block;
+
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.trade-item strong {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.trade-item .profit {
+    color: #ef4444;
+}
+
+.trade-card__sell-button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.trade-card__sell-button:hover {
+    opacity: 0.9;
+}
+
+.trade-card__sell-button:active {
+    transform: scale(0.99);
+}
