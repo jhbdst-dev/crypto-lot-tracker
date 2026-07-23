@@ -22,49 +22,19 @@ coin_totals = calculate_trade_quantities(rows)
 # BTC 거래내역 필터링
 btc_rows = filter_trades_by_market(rows, "KRW-BTC")
 
-# BTC 전체 거래내역 출력
-print("\n[BTC 전체 거래내역]")
 
-# BTC 거래내역을 시간순으로 출력
-for row in sorted(btc_rows, key=lambda row: row[12]):
-    print(
-        row[12],
-        row[3],
-        "수량:", row[8],
-        "체결금액:", row[9],
-    )
 
-# 코인별 총 매수·매도 수량 출력
-"""
-for market, totals in coin_totals.items():
-    print(
-        market,
-        "매수:", totals["buy_quantity"],
-        "매도:", totals["sell_quantity"],
-    )
-"""
+
 
 # 코인별 현재 보유수량 계산
 current_holdings = calculate_current_holdings(coin_totals)
 
-# 코인별 현재 보유수량 출력
-for market, quantity in current_holdings.items():
-    print(
-        market,
-        "현재 보유수량:",
-        quantity,
-    )
+
 
 # 업비트 계좌의 실제 보유자산 조회
 assets = get_account_assets()
 
-# 실제 보유자산과 평균 매수가 출력
-for market, asset in assets.items():
-    print(
-        market,
-        "보유수량:", asset["quantity"],
-        "평균 매수가:", asset["average_buy_price"],
-    )
+
 
 # 업비트 거래 수수료율 설정
 fee_rate = Decimal("0.0005") # fee_rate = 0.0005는 float 타입이라 

@@ -254,11 +254,6 @@ def calculate_sell(
         / selected_quantity
     )
 
-    print(
-        "1개당 실제 매수원가:",
-        selected_buy_unit_cost
-    )
-
     # 예상 매도 거래금액 계산
     sell_trade_amount = (
         sell_quantity

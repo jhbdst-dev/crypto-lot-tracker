@@ -98,13 +98,6 @@ while start_time < now:
         timeout=10,
     )
 
-    # 현재 조회 기간과 응답 상태 출력
-    print(
-        f"조회 기간: {start_time.isoformat()} "
-        f"~ {end_time.isoformat()}"
-    )
-    print("상태 코드:", response.status_code)
-
     # API 요청 실패 시 오류를 출력하고 조회 중단
     if response.status_code != 200:
         print("API 오류:", response.json())
@@ -115,9 +108,6 @@ while start_time < now:
 
     # 조회한 거래내역을 DB에 저장
     save_trades(trades)
-
-    # 조회 및 저장 시도 건수 출력
-    print(f"{len(trades)}건 조회 및 저장 시도")
 
     # 다음 조회는 이번 종료 시점부터 시작
     start_time = end_time
