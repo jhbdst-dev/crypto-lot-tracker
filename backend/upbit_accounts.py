@@ -85,3 +85,15 @@ def get_account_assets():
 
     # 현재 보유자산 반환
     return assets
+
+if __name__ == "__main__":
+    assets = get_account_assets()
+
+    print("\n=== 현재 보유 자산 조회 ===")
+
+    for market, asset in assets.items():
+        print(f"\n코인: {market}")
+        print(f"보유수량: {asset['quantity']}")
+        print(f"업비트 평균 매수가: {asset['average_buy_price']:,.2f}원")
+
+    print("\n========================")
