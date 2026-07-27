@@ -36,6 +36,8 @@ function CoinDetailPage() {
     const [coinData, setCoinData] =
         useState<CoinDetailData | null>(null)
 
+    const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
+
     useEffect(() => {
         if (!market) {
             return
@@ -109,6 +111,12 @@ function CoinDetailPage() {
             : symbol === "ETH"
             ? "Ξ"
             : "X"
+
+    const sortedTrades = [...coinData.buy_trades].sort((a, b) =>
+        sortOrder === "desc"
+            ? new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            : new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    );
 
     return (
         <main className="coin-detail-page">
@@ -253,20 +261,24 @@ function CoinDetailPage() {
 
                 {/* 개별 매수 거래 목록 헤더 */}
                 <div className="trade-list__header">
-
                     <h2>개별 매수 거래 목록</h2>
 
-                    <button
-                        className="trade-list__sort-button"
-                        type="button"
+                    <span
+                        onClick={() =>
+                            setSortOrder(
+                                sortOrder === "desc" ? "asc" : "desc"
+                            )
+                        }
+                        style={{ cursor: "pointer" }}
                     >
-                        최신순 ▼
-                    </button>
-
+                        {sortOrder === "desc"
+                            ? "최신순 ▼"
+                            : "오래된순 ▲"}
+                    </span>
                 </div>
 
                 {/* 개별 매수 거래 목록 메인 */}
-                {coinData.buy_trades.map((trade) => (
+                {sortedTrades.map((trade) => (
                     <article
                         className="trade-card"
                         key={trade.uuid}
