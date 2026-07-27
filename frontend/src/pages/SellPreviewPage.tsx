@@ -32,7 +32,6 @@ function SellPreviewPage() {
         useState<BuyTrade | null>(null)
 
     const [sellPrice, setSellPrice] = useState("")
-
     const [sellQuantity, setSellQuantity] = useState("")
 
     useEffect(() => {
@@ -117,6 +116,10 @@ function SellPreviewPage() {
 
     const expectedSellAmount =
         sellPriceNumber * sellQuantityNumber
+
+    const expectedFee =
+        expectedSellAmount * 0.0005
+
 
     return (
         <main className="sell-preview-page">
@@ -299,7 +302,9 @@ function SellPreviewPage() {
 
                     <div className="sell-result-item">
                         <span>예상 매도 수수료 (0.05%)</span>
-                        <strong>1,620원</strong>
+                        <strong>
+                            {Math.round(expectedFee).toLocaleString("ko-KR")}원
+                        </strong>
                     </div>
 
                     <div className="sell-result-item sell-result-item--settlement">
