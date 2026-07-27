@@ -120,6 +120,8 @@ function SellPreviewPage() {
     const expectedFee =
         expectedSellAmount * 0.0005
 
+    const expectedSettlement =
+        expectedSellAmount - expectedFee
 
     return (
         <main className="sell-preview-page">
@@ -309,7 +311,7 @@ function SellPreviewPage() {
 
                     <div className="sell-result-item sell-result-item--settlement">
                         <span>예상 정산금액</span>
-                        <strong>3,238,380원</strong>
+                        <strong>{Math.round(expectedSettlement).toLocaleString()}원</strong>
                     </div>
 
                     <div className="sell-result-divider" />
@@ -330,7 +332,8 @@ function SellPreviewPage() {
                     </div>
 
                     <div className="sell-result-divider" />
-
+                    
+                    {/* 
                     <div className="sell-result-item">
                         <span>매도 후 남은 수량</span>
                         <strong>0 BTC</strong>
@@ -340,7 +343,8 @@ function SellPreviewPage() {
                         <span>매도 후 남은 원가</span>
                         <strong>0원</strong>
                     </div>
-
+                    */}
+                    
                 </div>
 
             </section>
