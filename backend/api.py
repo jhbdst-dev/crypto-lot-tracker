@@ -14,6 +14,8 @@ from backend.upbit_prices import get_current_prices
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from decimal import Decimal
+
 app = FastAPI()
 
 app.add_middleware(
@@ -161,6 +163,21 @@ def get_coin_detail(market: str):
             paid_fee * remaining_ratio
         )
 
+        evaluation_amount = (
+            remaining_quantity * current_price
+        )
+
+        evaluation_profit = (
+            evaluation_amount - remaining_buy_amount
+        )
+
+        if remaining_buy_amount == 0:
+            profit_rate = Decimal("0")
+        else:
+            profit_rate = (
+                evaluation_profit / remaining_buy_amount
+            ) * Decimal("100")
+
         buy_trades.append({
             "uuid": row[1],
             "created_at": row[12],
@@ -172,6 +189,9 @@ def get_coin_detail(market: str):
                 remaining_buy_amount
                 + remaining_fee_amount
             ),
+            "evaluation_amount": float(evaluation_amount),
+            "evaluation_profit": float(evaluation_profit),
+            "profit_rate": float(profit_rate),
         })
 
     return {

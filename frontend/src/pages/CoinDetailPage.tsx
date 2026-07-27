@@ -10,6 +10,9 @@ type BuyTrade = {
     buy_amount: number
     fee_amount: number
     total_buy_amount: number
+    evaluation_amount: number
+    evaluation_profit: number
+    profit_rate: number
 }
 
 type CoinDetailData = {
@@ -299,17 +302,29 @@ function CoinDetailPage() {
 
                             <div className="trade-item">
                                 <span>평가금액</span>
-                                <strong>계산 예정</strong>
+                                <strong>
+                                    {Math.round(
+                                        trade.evaluation_amount
+                                    ).toLocaleString("ko-KR")}원
+                                </strong>
                             </div>
 
                             <div className="trade-item">
                                 <span>평가손익</span>
-                                <strong>계산 예정</strong>
+                                <strong>
+                                    {trade.evaluation_profit >= 0 ? "+" : ""}
+                                    {Math.round(
+                                        trade.evaluation_profit
+                                    ).toLocaleString("ko-KR")}원
+                                </strong>
                             </div>
 
                             <div className="trade-item">
                                 <span>수익률</span>
-                                <strong>계산 예정</strong>
+                                <strong>
+                                    {trade.profit_rate >= 0 ? "+" : ""}
+                                    {trade.profit_rate.toFixed(2)}%
+                                </strong>
                             </div>
 
                         </div>
