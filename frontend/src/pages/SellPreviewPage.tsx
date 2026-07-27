@@ -112,6 +112,12 @@ function SellPreviewPage() {
             ? "Ξ"
             : "X"
 
+    const sellPriceNumber = Number(sellPrice)
+    const sellQuantityNumber = Number(sellQuantity)
+
+    const expectedSellAmount =
+        sellPriceNumber * sellQuantityNumber
+
     return (
         <main className="sell-preview-page">
 
@@ -221,12 +227,12 @@ function SellPreviewPage() {
 
                         <span>원</span>
                     </div>
-
+                    {/* 
                     <p className="sell-input-help">
                         현재가 162,000,000원
                         <strong> (+2.15%)</strong>
                     </p>
-
+                    */}
                 </div>
 
                 <div className="sell-input-group">
@@ -255,7 +261,7 @@ function SellPreviewPage() {
                         <button type="button">50%</button>
                         <button type="button">75%</button>
                         */}
-                        
+
                         <button
                             className="sell-quantity-buttons__all"
                             type="button"
@@ -284,7 +290,11 @@ function SellPreviewPage() {
 
                     <div className="sell-result-item">
                         <span>예상 매도금액</span>
-                        <strong>3,240,000원</strong>
+                        <strong>
+                            {Math.round(
+                                expectedSellAmount
+                            ).toLocaleString("ko-KR")}원
+                        </strong>
                     </div>
 
                     <div className="sell-result-item">
