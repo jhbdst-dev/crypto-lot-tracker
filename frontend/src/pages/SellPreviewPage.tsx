@@ -31,6 +31,8 @@ function SellPreviewPage() {
     const [selectedTrade, setSelectedTrade] =
         useState<BuyTrade | null>(null)
 
+    const [sellPrice, setSellPrice] = useState("")
+
     useEffect(() => {
         if (!market || !tradeId) {
             return
@@ -76,6 +78,10 @@ function SellPreviewPage() {
     function handleRefresh() {
         console.log("새로고침")
     }
+
+    useEffect(() => {
+        console.log(sellPrice)
+    }, [sellPrice])
 
     function formatDate(dateString: string) {
         const date = new Date(dateString)
@@ -207,7 +213,8 @@ function SellPreviewPage() {
                         <input
                             id="sell-price"
                             type="number"
-                            defaultValue="162000000"
+                            value={sellPrice}
+                            onChange={(e) => setSellPrice(e.target.value)}
                         />
 
                         <span>원</span>
