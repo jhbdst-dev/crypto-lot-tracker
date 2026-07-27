@@ -78,6 +78,19 @@ function CoinDetailPage() {
         console.log("새로고침")
     }
 
+    function formatDate(dateString: string) {
+        const date = new Date(dateString);
+
+        return date.toLocaleString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        });
+    }
+
     function handleSellPreview(tradeId: string) {
         navigate(
             `/coins/${symbol}/trades/${tradeId}/sell`
@@ -260,7 +273,7 @@ function CoinDetailPage() {
                     >
                         <div className="trade-card__header">
                             <time dateTime={trade.created_at}>
-                                {trade.created_at}
+                                {formatDate(trade.created_at)}
                             </time>
 
                             <span className="trade-card__id">
