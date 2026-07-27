@@ -33,6 +33,8 @@ function SellPreviewPage() {
 
     const [sellPrice, setSellPrice] = useState("")
 
+    const [sellQuantity, setSellQuantity] = useState("")
+
     useEffect(() => {
         if (!market || !tradeId) {
             return
@@ -235,25 +237,35 @@ function SellPreviewPage() {
 
                     <div className="sell-input-field">
                         <input
-                            id="sell-quantity"
                             type="number"
-                            step="0.001"
-                            defaultValue="0.020"
+                            value={sellQuantity}
+                            onChange={(e) => {
+                                setSellQuantity(e.target.value)
+                                console.log(e.target.value)
+                            }}
                         />
 
-                        <span>BTC</span>
+                        <span>{coinData?.market.replace("KRW-", "")}</span>
                     </div>
 
                     <div className="sell-quantity-buttons">
+                        
+                        {/* 
                         <button type="button">25%</button>
                         <button type="button">50%</button>
                         <button type="button">75%</button>
-
+                        */}
+                        
                         <button
                             className="sell-quantity-buttons__all"
                             type="button"
+                            onClick={() => {
+                                if (selectedTrade) {
+                                setSellQuantity(selectedTrade.quantity.toString())
+                                }
+                            }}
                         >
-                            전량 (0.020 BTC)
+                            전량 ({selectedTrade?.quantity} {market?.replace("KRW-", "")})
                         </button>
                     </div>
 
