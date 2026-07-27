@@ -75,8 +75,10 @@ function CoinDetailPage() {
         console.log("새로고침")
     }
 
-    function handleSellPreview(tradeId: number) {
-        navigate(`/coins/BTC/trades/${tradeId}/sell`)
+    function handleSellPreview(tradeId: string) {
+        navigate(
+            `/coins/${symbol}/trades/${tradeId}/sell`
+        )
     }
 
     if (!coinData) {
@@ -248,118 +250,81 @@ function CoinDetailPage() {
                 </div>
 
                 {/* 개별 매수 거래 목록 메인 */}
-                <article className="trade-card">
-
-                    <div className="trade-card__header">
-                        <time dateTime="2025-06-01T14:32:15">
-                            2025-06-01 14:32:15
-                        </time>
-
-                        <span className="trade-card__id">
-                            거래 ID 1
-                        </span>
-                    </div>
-
-                    <div className="trade-card__body">
-
-                        <div className="trade-item">
-                            <span>매수가</span>
-                            <strong>130,000,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>남은 수량</span>
-                            <strong>0.020 BTC</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>매수원금</span>
-                            <strong>2,600,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>평가금액</span>
-                            <strong>3,240,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>평가손익</span>
-                            <strong className="profit">+640,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>수익률</span>
-                            <strong className="profit">+24.62%</strong>
-                        </div>
-
-                    </div>
-
-                    <button
-                        className="trade-card__sell-button"
-                        type="button"
-                        onClick={() => handleSellPreview(1)}
+                {coinData.buy_trades.map((trade) => (
+                    <article
+                        className="trade-card"
+                        key={trade.uuid}
                     >
-                        매도 계산하기
-                    </button>
+                        <div className="trade-card__header">
+                            <time dateTime={trade.created_at}>
+                                {trade.created_at}
+                            </time>
 
-                </article>
-
-                {/* 개별 매수 거래 목록 메인 */}
-                <article className="trade-card">
-
-                    <div className="trade-card__header">
-                        <time dateTime="2025-06-01T14:32:15">
-                            2025-06-01 14:32:15
-                        </time>
-
-                        <span className="trade-card__id">
-                            거래 ID 2
-                        </span>
-                    </div>
-
-                    <div className="trade-card__body">
-
-                        <div className="trade-item">
-                            <span>매수가</span>
-                            <strong>130,000,000원</strong>
+                            <span className="trade-card__id">
+                                거래 ID {trade.uuid.slice(0, 8)}
+                            </span>
                         </div>
 
-                        <div className="trade-item">
-                            <span>남은 수량</span>
-                            <strong>0.020 BTC</strong>
+                        <div className="trade-card__body">
+
+                            <div className="trade-item">
+                                <span>매수가</span>
+                                <strong>
+                                    {Math.round(
+                                        trade.buy_price
+                                    ).toLocaleString("ko-KR")}원
+                                </strong>
+                            </div>
+
+                            <div className="trade-item">
+                                <span>남은 수량</span>
+                                <strong>
+                                    {trade.quantity.toLocaleString(
+                                        "ko-KR",
+                                        {
+                                            maximumFractionDigits: 8,
+                                        }
+                                    )} {symbol}
+                                </strong>
+                            </div>
+
+                            <div className="trade-item">
+                                <span>매수원금</span>
+                                <strong>
+                                    {Math.round(
+                                        trade.buy_amount
+                                    ).toLocaleString("ko-KR")}원
+                                </strong>
+                            </div>
+
+                            <div className="trade-item">
+                                <span>평가금액</span>
+                                <strong>계산 예정</strong>
+                            </div>
+
+                            <div className="trade-item">
+                                <span>평가손익</span>
+                                <strong>계산 예정</strong>
+                            </div>
+
+                            <div className="trade-item">
+                                <span>수익률</span>
+                                <strong>계산 예정</strong>
+                            </div>
+
                         </div>
 
-                        <div className="trade-item">
-                            <span>매수원금</span>
-                            <strong>2,600,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>평가금액</span>
-                            <strong>3,240,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>평가손익</span>
-                            <strong className="profit">+640,000원</strong>
-                        </div>
-
-                        <div className="trade-item">
-                            <span>수익률</span>
-                            <strong className="profit">+24.62%</strong>
-                        </div>
-
-                    </div>
-
-                    <button
-                        className="trade-card__sell-button"
-                        type="button"
-                        onClick={() => handleSellPreview(2)}
-                    >
-                        매도 계산하기
-                    </button>
-
-                </article>
+                        <button
+                            className="trade-card__sell-button"
+                            type="button"
+                            onClick={() =>
+                                handleSellPreview(trade.uuid)
+                            }
+                        >
+                            매도 계산하기
+                        </button>
+                    </article>
+                ))}
 
             </section>
 
