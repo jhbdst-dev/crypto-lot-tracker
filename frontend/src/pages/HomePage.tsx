@@ -27,20 +27,20 @@ function HomePage() {
 
     const [summary, setSummary] = useState<Summary | null>(null)
 
-    useEffect(() => {
+    function fetchHomeData() {
         fetch("http://127.0.0.1:8000/home")
             .then((response) => response.json())
             .then((data) => {
-                console.log("전체 데이터:", data)
-                console.log("summary 데이터:", data.summary)
-                console.log("coins 데이터:", data.coins)
-                
                 setSummary(data.summary)
                 setCoins(data.coins)
             })
             .catch((error) => {
                 console.error("API 오류:", error)
             })
+    }
+
+    useEffect(() => {
+        fetchHomeData()
     }, [])
 
     return (
@@ -55,6 +55,7 @@ function HomePage() {
                 <button
                     className="home-header__refresh-button"
                     type="button"
+                    onClick={fetchHomeData}
                 >
                     ↻
                 </button>

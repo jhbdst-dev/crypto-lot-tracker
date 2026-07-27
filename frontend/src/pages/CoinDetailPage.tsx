@@ -38,7 +38,7 @@ function CoinDetailPage() {
 
     const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
 
-    useEffect(() => {
+    async function fetchCoinDetail() {
         if (!market) {
             return
         }
@@ -47,27 +47,27 @@ function CoinDetailPage() {
             ? market
             : `KRW-${market}`
 
-        async function fetchCoinDetail() {
-            try {
-                const response = await fetch(
-                    `http://127.0.0.1:8000/coins/${apiMarket}`
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:8000/coins/${apiMarket}`
+            )
+
+            if (!response.ok) {
+                throw new Error(
+                    "코인 상세 정보를 가져오지 못했습니다."
                 )
-
-                if (!response.ok) {
-                    throw new Error(
-                        "코인 상세 정보를 가져오지 못했습니다."
-                    )
-                }
-
-                const data: CoinDetailData =
-                    await response.json()
-
-                setCoinData(data)
-            } catch (error) {
-                console.error(error)
             }
-        }
 
+            const data: CoinDetailData =
+                await response.json()
+
+            setCoinData(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
         fetchCoinDetail()
     }, [market])
 
@@ -77,7 +77,7 @@ function CoinDetailPage() {
     }
 
     function handleRefresh() {
-        console.log("새로고침")
+        fetchCoinDetail()
     }
 
     function formatDate(dateString: string) {
