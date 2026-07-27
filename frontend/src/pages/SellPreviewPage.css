@@ -272,6 +272,10 @@
     color: #ef4444;
 }
 
+.sell-result-item .loss {
+    color: #3b82f6;
+}
+
 .sell-result-divider {
     height: 1px;
     margin: 20px 0;

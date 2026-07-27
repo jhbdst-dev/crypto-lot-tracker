@@ -131,7 +131,13 @@ function SellPreviewPage() {
         expectedSettlement - soldCost
 
     const expectedProfitRate =
-        (expectedProfit / soldCost) * 100
+        soldCost > 0
+            ? (expectedProfit / soldCost) * 100
+            : 0
+
+    const canCalculate =
+        sellPriceNumber > 0 &&
+        sellQuantityNumber > 0
 
     return (
         <main className="sell-preview-page">
@@ -333,15 +339,38 @@ function SellPreviewPage() {
 
                     <div className="sell-result-item">
                         <span>예상 실현손익</span>
-                        <strong className="profit">{Math.round(expectedProfit).toLocaleString()}원</strong>
+                        <strong
+                            className={
+                                expectedProfit > 0
+                                    ? "profit"
+                                    : expectedProfit < 0
+                                    ? "loss"
+                                    : ""
+                            }
+                        >
+                            {canCalculate
+                                ? `${expectedProfit >= 0 ? "+" : ""}${Math.round(
+                                    expectedProfit
+                                ).toLocaleString("ko-KR")}원`
+                                : "0원"}
+                        </strong>
                     </div>
 
                     <div className="sell-result-item">
                         <span>예상 실현수익률</span>
-                        <strong className="profit">
-                            {expectedProfitRate >= 0 ? "+" : ""}
-                            {expectedProfitRate.toFixed(2)}%
-                        </strong>
+                        <strong
+                            className={
+                                expectedProfitRate > 0
+                                    ? "profit"
+                                    : expectedProfitRate < 0
+                                    ? "loss"
+                                    : ""
+                            }
+                        >
+                            {canCalculate
+                                ? `${expectedProfitRate >= 0 ? "+" : ""}${expectedProfitRate.toFixed(2)}%`
+                                : "0.00%"}
+                        </strong>            
                     </div>
 
                     <div className="sell-result-divider" />
