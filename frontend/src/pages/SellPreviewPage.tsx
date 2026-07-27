@@ -1,9 +1,73 @@
 import "./SellPreviewPage.css"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+
+type BuyTrade = {
+    uuid: string
+    created_at: string
+    buy_price: number
+    quantity: number
+    buy_amount: number
+}
+
+type CoinDetailData = {
+    market: string
+    coin_name: string
+    buy_trades: BuyTrade[]
+}
 
 function SellPreviewPage() {
 
     const navigate = useNavigate()
+
+    const { market, tradeId } = useParams<{
+        market: string
+        tradeId: string
+    }>()
+
+    const [coinData, setCoinData] =
+        useState<CoinDetailData | null>(null)
+
+    const [selectedTrade, setSelectedTrade] =
+        useState<BuyTrade | null>(null)
+
+    useEffect(() => {
+        if (!market || !tradeId) {
+            return
+        }
+
+        const apiMarket = market.startsWith("KRW-")
+            ? market
+            : `KRW-${market}`
+
+        async function fetchSelectedTrade() {
+            try {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/coins/${apiMarket}`
+                )
+
+                if (!response.ok) {
+                    throw new Error(
+                        "거래 정보를 가져오지 못했습니다."
+                    )
+                }
+
+                const data: CoinDetailData =
+                    await response.json()
+
+                const trade = data.buy_trades.find(
+                    (item) => item.uuid === tradeId
+                )
+
+                setCoinData(data)
+                setSelectedTrade(trade ?? null)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchSelectedTrade()
+    }, [market, tradeId])
 
     function handleBack() {
         navigate(-1)
@@ -13,6 +77,32 @@ function SellPreviewPage() {
         console.log("새로고침")
     }
 
+    function formatDate(dateString: string) {
+        const date = new Date(dateString)
+
+        return date.toLocaleString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        })
+    }
+
+
+    if (!coinData || !selectedTrade) {
+        return <main>불러오는 중...</main>
+    }
+
+    const symbol = coinData.market.replace("KRW-", "")
+
+    const coinIcon =
+        symbol === "BTC"
+            ? "₿"
+            : symbol === "ETH"
+            ? "Ξ"
+            : "X"
 
     return (
         <main className="sell-preview-page">
@@ -47,14 +137,14 @@ function SellPreviewPage() {
 
                     <div className="selected-trade-coin">
                         <div className="selected-trade-icon">
-                            ₿
+                            {coinIcon}
                         </div>
 
-                        <strong>BTC 비트코인</strong>
+                        <strong>{symbol} {coinData.coin_name}</strong>
                     </div>
 
                     <span className="selected-trade-id">
-                        거래 ID 1
+                        거래 ID {selectedTrade.uuid.slice(0, 8)}
                     </span>
 
                 </div>
@@ -63,22 +153,37 @@ function SellPreviewPage() {
 
                     <div className="selected-trade-item">
                         <span>매수일시</span>
-                        <strong>2025-06-01 14:32:15</strong>
+                        <strong>{formatDate(selectedTrade.created_at)}</strong>
                     </div>
 
                     <div className="selected-trade-item">
                         <span>매수가</span>
-                        <strong>130,000,000원</strong>
+                        <strong>
+                            {Math.round(
+                                selectedTrade.buy_price
+                            ).toLocaleString("ko-KR")}원
+                        </strong>
                     </div>
 
                     <div className="selected-trade-item">
                         <span>남은 보유수량</span>
-                        <strong>0.020 BTC</strong>
+                        <strong>
+                            {selectedTrade.quantity.toLocaleString(
+                                "ko-KR",
+                                {
+                                    maximumFractionDigits: 8,
+                                }
+                            )} {symbol}
+                        </strong>
                     </div>
 
                     <div className="selected-trade-item">
                         <span>실제 매수원가</span>
-                        <strong>2,600,000원</strong>
+                        <strong>
+                            {Math.round(
+                                selectedTrade.buy_amount
+                            ).toLocaleString("ko-KR")}원
+                        </strong>
                     </div>
 
                 </div>
