@@ -123,6 +123,16 @@ function SellPreviewPage() {
     const expectedSettlement =
         expectedSellAmount - expectedFee
 
+    const soldCost =
+        selectedTrade.buy_amount *
+        (sellQuantityNumber / selectedTrade.quantity)
+
+    const expectedProfit =
+        expectedSettlement - soldCost
+
+    const expectedProfitRate =
+        (expectedProfit / soldCost) * 100
+
     return (
         <main className="sell-preview-page">
 
@@ -318,17 +328,20 @@ function SellPreviewPage() {
 
                     <div className="sell-result-item">
                         <span>매도한 수량의 원가</span>
-                        <strong>2,600,000원</strong>
+                        <strong>{Math.round(soldCost).toLocaleString()}원</strong>
                     </div>
 
                     <div className="sell-result-item">
                         <span>예상 실현손익</span>
-                        <strong className="profit">+638,380원</strong>
+                        <strong className="profit">{Math.round(expectedProfit).toLocaleString()}원</strong>
                     </div>
 
                     <div className="sell-result-item">
                         <span>예상 실현수익률</span>
-                        <strong className="profit">+24.55%</strong>
+                        <strong className="profit">
+                            {expectedProfitRate >= 0 ? "+" : ""}
+                            {expectedProfitRate.toFixed(2)}%
+                        </strong>
                     </div>
 
                     <div className="sell-result-divider" />
@@ -344,7 +357,7 @@ function SellPreviewPage() {
                         <strong>0원</strong>
                     </div>
                     */}
-                    
+
                 </div>
 
             </section>
