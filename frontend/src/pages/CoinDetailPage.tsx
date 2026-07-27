@@ -311,7 +311,13 @@ function CoinDetailPage() {
 
                             <div className="trade-item">
                                 <span>평가손익</span>
-                                <strong>
+                                <strong
+                                    className={
+                                        trade.evaluation_profit >= 0
+                                            ? "profit"
+                                            : "loss"
+                                    }
+                                >
                                     {trade.evaluation_profit >= 0 ? "+" : ""}
                                     {Math.round(
                                         trade.evaluation_profit
@@ -321,7 +327,13 @@ function CoinDetailPage() {
 
                             <div className="trade-item">
                                 <span>수익률</span>
-                                <strong>
+                                <strong
+                                    className={
+                                        trade.profit_rate >= 0
+                                            ? "profit"
+                                            : "loss"
+                                    }
+                                >
                                     {trade.profit_rate >= 0 ? "+" : ""}
                                     {trade.profit_rate.toFixed(2)}%
                                 </strong>

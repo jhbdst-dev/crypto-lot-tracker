@@ -110,6 +110,10 @@
     color: #ef4444;
 }
 
+.summary-item .loss {
+    color: #3b82f6;
+}
+
 /* 개별 매수 거래 목록 */
 .trade-list {
     margin-top: 24px;
@@ -213,6 +217,10 @@
     transform: scale(0.99);
 }
 
-.loss {
+.trade-item strong.profit {
+    color: #ef4444;
+}
+
+.trade-item strong.loss {
     color: #3b82f6;
 }

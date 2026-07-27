@@ -67,6 +67,14 @@
     font-weight: 600;
 }
 
+.profit {
+    color: #ef4444;
+}
+
+.loss {
+    color: #3b82f6;
+}
+
 .asset-summary__bottom {
     display: flex;
     justify-content: space-between;
@@ -225,10 +233,5 @@
 
     font-size: 15px;
     font-weight: 700;
-}
-
-.coin-card__item:nth-child(4) strong,
-.coin-card__item:nth-child(5) strong {
-    color: #ef4444;
 }
 

@@ -75,7 +75,14 @@ function HomePage() {
                         }
                 </h2>
 
-                <p className="asset-summary__profit">
+                <p
+                    className={
+                        summary &&
+                        summary.total_evaluation_profit >= 0
+                            ? "asset-summary__profit profit"
+                            : "asset-summary__profit loss"
+                    }
+                >
                         {summary
                             ? `${summary.total_evaluation_profit.toLocaleString("ko-KR", {
                                 maximumFractionDigits: 0,
@@ -164,7 +171,14 @@ function HomePage() {
 
                             <div className="coin-card__item">
                                 <span>평가손익</span>
-                                <strong>
+                                <strong
+                                    className={
+                                        coin.evaluation_profit >= 0
+                                            ? "profit"
+                                            : "loss"
+                                    }
+                                >
+                                    {coin.evaluation_profit >= 0 ? "+" : ""}
                                     {coin.evaluation_profit.toLocaleString("ko-KR", {
                                         maximumFractionDigits: 0,
                                     })}원
@@ -173,7 +187,14 @@ function HomePage() {
 
                             <div className="coin-card__item">
                                 <span>수익률</span>
-                                <strong>
+                                <strong
+                                    className={
+                                        coin.profit_rate >= 0
+                                            ? "profit"
+                                            : "loss"
+                                    }
+                                >
+                                    {coin.profit_rate >= 0 ? "+" : ""}
                                     {coin.profit_rate.toFixed(2)}%
                                 </strong>
                             </div>
