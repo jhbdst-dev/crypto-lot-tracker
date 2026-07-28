@@ -1,8 +1,13 @@
 # crypto-lot-tracker
 
-프로젝트 한 줄 소개
+업비트 API와 연동하여 코인별 자산과 개별 거래내역을 추적하고,
+예상 매도 결과를 확인할 수 있는 암호화폐 자산 관리 웹 애플리케이션입니다.
 
-[대표 이미지]
+## 📱 프로젝트 홈 화면
+
+<p align="center">
+  <img src="docs/images/home.png" width="350">
+</p>
 
 ---
 
@@ -25,6 +30,12 @@
 ---
 
 # 프로젝트 소개
+
+crypto-lot-tracker는 업비트 API와 연동하여 암호화폐 자산을 관리하는 웹 애플리케이션입니다.
+
+거래내역을 기반으로 코인별 자산 현황과 개별 거래 손익을 계산하고, 예상 매도 결과를 확인할 수 있습니다.
+
+백엔드는 Python과 FastAPI, 프론트엔드는 React와 TypeScript를 사용하여 개발했습니다.
 
 ⬆️ [맨 위로](#crypto-lot-tracker)
 
