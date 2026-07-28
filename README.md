@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 # crypto-lot-tracker
 
 업비트 API와 연동하여 코인별 자산과 개별 거래내역을 추적하고,
@@ -9,7 +11,11 @@
   <img src="docs/images/home.png" width="350">
 </p>
 
+총 평가금액, 보유 코인, 평가손익 등 전체 자산 현황을 한눈에 확인할 수 있습니다.
+
 ---
+
+<a id="toc"></a>
 
 ## 📑 목차
 
@@ -37,76 +43,94 @@ crypto-lot-tracker는 업비트 API와 연동하여 암호화폐 자산을 관�
 
 백엔드는 Python과 FastAPI, 프론트엔드는 React와 TypeScript를 사용하여 개발했습니다.
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 프로젝트를 만든 이유
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 프로젝트 화면
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+### 📄 코인 상세 화면
+
+<p align="center">
+  <img src="docs/images/coin_detail.png" width="350">
+</p>
+
+선택한 코인의 평균 매수가, 총 매수금액, 개별 거래내역을 확인할 수 있습니다.
+
+---
+
+### 💰 예상 매도 화면
+
+<p align="center">
+  <img src="docs/images/sell_preview.png" width="350">
+</p>
+
+매도 가격과 수량을 입력하여 예상 매도 금액과 손익을 미리 계산할 수 있습니다.
+
+⬆️ [목차로](#toc)
 
 ---
 
 # 주요 기능
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 기술 스택
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 전체 시스템 구조
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 데이터 흐름
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 핵심 계산 로직
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # API 구조
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 백엔드 구조
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 어려웠던 점과 해결 과정
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 프로젝트를 하며 배운 점
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
 
 ---
 
 # 향후 개선 계획
 
-⬆️ [맨 위로](#crypto-lot-tracker)
+⬆️ [목차로](#toc)
