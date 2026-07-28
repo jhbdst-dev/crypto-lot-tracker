@@ -230,30 +230,48 @@ React는 전달받은 데이터를 화면에 출력하여 사용자에게 자산
 {
   "summary": {
     "total_evaluation_amount": 5388390,
-    "total_buy_amount": 7099978,
     "total_profit_loss": -1711588,
-    "total_profit_rate": -24.11,
     "coin_count": 3
   },
   "coins": [
     {
       "market": "KRW-BTC",
-      "currency": "BTC",
       "balance": 0.02681095,
-      "avg_buy_price": 115615383,
       "current_price": 92260000,
-      "evaluation_amount": 2473578,
-      "profit_loss": -626180,
-      "profit_rate": -20.20
+      "profit_rate": -20.2
     }
   ]
 }
+```
 
 ⬆️ [목차로](#toc)
 
 ---
 
 # 백엔드 구조
+
+백엔드는 FastAPI를 중심으로 구성하였으며, API 요청을 받아 업비트 API와 PostgreSQL의 데이터를 조회한 뒤
+필요한 계산을 수행하여 JSON 형태로 프론트엔드에 전달합니다.
+
+```text
+backend/
+
+├── api.py               # FastAPI API 엔드포인트
+├── calculator.py        # 자산 및 손익 계산
+├── database.py          # PostgreSQL 데이터 조회 및 저장
+├── upbit_api.py         # 업비트 거래내역 조회
+├── upbit_accounts.py    # 업비트 보유 자산 조회
+├── upbit_prices.py      # 업비트 현재가 조회
+```
+
+| 파일                  | 역할                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| **api.py**            | FastAPI 엔드포인트를 제공하고 프론트엔드 요청을 처리합니다.  |
+| **calculator.py**     | 자산, 평가금액, 손익, 수익률 등 핵심 계산 로직을 담당합니다. |
+| **database.py**       | PostgreSQL에서 거래내역을 저장하고 조회합니다.               |
+| **upbit_api.py**      | 업비트 API를 호출하여 거래내역을 수집하고 DB에 저장합니다.   |
+| **upbit_accounts.py** | 업비트 계좌의 보유 코인, 보유수량, 평균 매수가를 조회합니다. |
+| **upbit_prices.py**   | 보유 코인의 현재 시세를 조회합니다.                          |
 
 ⬆️ [목차로](#toc)
 
@@ -274,4 +292,7 @@ React는 전달받은 데이터를 화면에 출력하여 사용자에게 자산
 # 향후 개선 계획
 
 ⬆️ [목차로](#toc)
+
+```
+
 ```
