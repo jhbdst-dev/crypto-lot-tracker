@@ -145,6 +145,13 @@ crypto-lot-tracker는 업비트 API와 연동하여 암호화폐 자산을 관�
 
 # 전체 시스템 구조
 
+프로젝트는 React 기반의 프론트엔드와 FastAPI 백엔드로 구성되어 있으며,
+업비트 Open API와 PostgreSQL을 이용하여 데이터를 처리합니다.
+
+<p align="center">
+  <img src="docs/images/system_architecture.png" width="700" alt="전체 시스템 구조">
+</p>
+
 ⬆️ [목차로](#toc)
 
 ---
