@@ -228,7 +228,7 @@ React는 전달받은 데이터를 화면에 출력하여 사용자에게 자산
 
 ```json
 {
-  "summary": {
+  "total_buy_amount": {
     "total_evaluation_amount": 5388390,
     "total_profit_loss": -1711588,
     "coin_count": 3
