@@ -1,20 +1,20 @@
+from decimal import Decimal
+
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.calculator import (
     calculate_coin_asset,
     calculate_home_summary,
-    get_trades_by_market,
     get_current_buy_lots,
+    get_trades_by_market,
 )
 
 from backend.database import get_trades
-
 from backend.upbit_accounts import get_account_assets
 from backend.upbit_prices import get_current_prices
 
-from fastapi.middleware.cors import CORSMiddleware
 
-from decimal import Decimal
 
 app = FastAPI()
 
@@ -25,13 +25,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-def root():
-    return {
-        "message": "Hello FastAPI!",
-    }
-
 
 @app.get("/home")
 def get_home():
@@ -55,24 +48,23 @@ def get_home():
 
         coin_results.append(result)
 
-        # 전체 자산 요약 계산
-        summary = calculate_home_summary(coin_results)
+    # 전체 자산 요약 계산
+    summary = calculate_home_summary(coin_results)
 
-        # Decimal은 JSON으로 바로 보내기 어려우므로 숫자로 변환
-        coins = []
+    # Decimal은 JSON으로 바로 보내기 어려우므로 숫자로 변환
+    coins = []
 
-
-        for result in coin_results:
-            coins.append({
-                "market": result["market"],
-                "quantity": float(result["quantity"]),
-                "average_buy_price": float(result["average_buy_price"]),
-                "current_price": float(result["current_price"]),
-                "total_buy_amount": float(result["total_buy_amount"]),
-                "evaluation_amount": float(result["evaluation_amount"]),
-                "evaluation_profit": float(result["evaluation_profit"]),
-                "profit_rate": float(result["profit_rate"]),
-            })
+    for result in coin_results:
+        coins.append({
+            "market": result["market"],
+            "quantity": float(result["quantity"]),
+            "average_buy_price": float(result["average_buy_price"]),
+            "current_price": float(result["current_price"]),
+            "total_buy_amount": float(result["total_buy_amount"]),
+            "evaluation_amount": float(result["evaluation_amount"]),
+            "evaluation_profit": float(result["evaluation_profit"]),
+            "profit_rate": float(result["profit_rate"]),
+        })
 
     return {
         "summary": {

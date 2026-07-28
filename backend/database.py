@@ -1,15 +1,19 @@
-import psycopg2
+import os
 
+import psycopg2
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # PostgreSQL 데이터베이스 연결
 def connect_db():
     return psycopg2.connect(
-        dbname="crypto_lot_tracker",
-        user="hs",
-        host="localhost",
-        port="5432"
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        host=os.getenv("DB_HOST", "localhost"),
+        port=os.getenv("DB_PORT", "5432"),
     )
-
 
 # DB에 저장된 전체 거래내역 조회
 def get_trades():

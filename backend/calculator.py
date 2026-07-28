@@ -78,37 +78,6 @@ def get_trades_by_market(rows, market):
     # 특정 시장의 거래내역 반환
     return market_rows
 
-def get_current_buy_cycle(rows):
-    # 오래된 거래부터 계산
-    sorted_rows = sorted(
-        rows,
-        key=lambda row: row[12],
-    )
-
-    current_quantity = Decimal("0")
-    current_buy_rows = []
-
-    for row in sorted_rows:
-        side = row[3]
-        executed_volume = row[8]
-
-        # 매수
-        if side == "bid":
-            current_quantity += executed_volume
-            current_buy_rows.append(row)
-
-        # 매도
-        elif side == "ask":
-            current_quantity -= executed_volume
-
-            # 보유수량이 모두 정리되면
-            # 이전 매수 사이클은 끝난 것
-            if current_quantity <= 0:
-                current_quantity = Decimal("0")
-                current_buy_rows = []
-
-    return current_buy_rows
-
 def get_current_buy_lots(rows, current_quantity):
     # 매수 거래만 최신순으로 정렬
     buy_rows = [

@@ -3,7 +3,6 @@ import json
 from decimal import Decimal
 
 from backend.calculator import calculate_coin_asset
-from backend.printer import print_coin_asset
 from backend.upbit_accounts import get_account_assets
 
 
@@ -55,16 +54,6 @@ def watch_current_price(rows, fee_rate, assets):
         previous_price = previous_prices.get(market)
 
         if current_price != previous_price:
-            asset = assets[market]
-
-            result = calculate_coin_asset(
-                market=market,
-                quantity=asset["quantity"],
-                average_buy_price=asset["average_buy_price"],
-                current_price=current_price,
-            )
-
-            print_coin_asset(result)
 
             previous_prices[market] = current_price
 
