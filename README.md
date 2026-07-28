@@ -158,8 +158,6 @@ crypto-lot-tracker는 업비트 API와 연동하여 암호화폐 자산을 관�
 
 # 데이터 흐름
 
-⬆️ [목차로](#toc)
-
 사용자가 홈 화면을 요청하면 React가 FastAPI에 API를 요청합니다.
 
 FastAPI는 Upbit API에서 보유 자산과 현재가를 조회하고, PostgreSQL에서 거래 데이터를 조회합니다.
@@ -171,6 +169,8 @@ React는 전달받은 데이터를 화면에 출력하여 사용자에게 자산
 <p align="center">
   <img src="docs/images/data_flow.png" width="700" alt="데이터 흐름">
 </p>
+
+⬆️ [목차로](#toc)
 
 ---
 
@@ -384,8 +384,10 @@ FastAPI가 해당 형태의 JSON을 반환하도록 API를 다시 설계했습�
 
 # 향후 개선 계획
 
+- WebSocket을 활용한 실시간 현재가 반영
+- 반응형 UI 개선
+- JWT 기반 사용자 로그인 기능 추가
+- 거래내역 검색 및 필터 기능 추가
+- Docker를 이용한 배포 환경 구성
+
 ⬆️ [목차로](#toc)
-
-```
-
-```
