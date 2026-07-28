@@ -218,6 +218,37 @@ React는 전달받은 데이터를 화면에 출력하여 사용자에게 자산
 
 # API 구조
 
+프론트엔드는 FastAPI에서 제공하는 API를 호출하여 자산 정보와 계산 결과를 전달받습니다.
+
+### `GET /home`
+
+홈 화면에 필요한 전체 자산 요약과 보유 코인 목록을 반환합니다.
+
+**응답 데이터**
+
+```json
+{
+  "summary": {
+    "total_evaluation_amount": 5388390,
+    "total_buy_amount": 7099978,
+    "total_profit_loss": -1711588,
+    "total_profit_rate": -24.11,
+    "coin_count": 3
+  },
+  "coins": [
+    {
+      "market": "KRW-BTC",
+      "currency": "BTC",
+      "balance": 0.02681095,
+      "avg_buy_price": 115615383,
+      "current_price": 92260000,
+      "evaluation_amount": 2473578,
+      "profit_loss": -626180,
+      "profit_rate": -20.20
+    }
+  ]
+}
+
 ⬆️ [목차로](#toc)
 
 ---
@@ -243,3 +274,4 @@ React는 전달받은 데이터를 화면에 출력하여 사용자에게 자산
 # 향후 개선 계획
 
 ⬆️ [목차로](#toc)
+```
