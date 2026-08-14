@@ -14,8 +14,6 @@ from backend.database import get_trades
 from backend.upbit_accounts import get_account_assets
 from backend.upbit_prices import get_current_prices
 
-
-
 app = FastAPI()
 
 app.add_middleware(
@@ -83,6 +81,16 @@ def get_home():
         "coins": coins,
     }
 
+"""
+현재 방식
+COIN_NAMES에 직접 작성
+
+↓
+
+개선 방향
+업비트 마켓 정보 API에서
+market + korean_name을 받아서 연결
+"""
 COIN_NAMES = {
     "KRW-BTC": "비트코인",
     "KRW-ETH": "이더리움",
@@ -91,6 +99,7 @@ COIN_NAMES = {
 
 @app.get("/coins/{market}")
 def get_coin_detail(market: str):
+
     market = market.upper()
 
     if market not in COIN_NAMES:
@@ -130,39 +139,57 @@ def get_coin_detail(market: str):
         asset["quantity"],
     )
 
+    # 개별 매수 거래의 계산 결과를 저장할 빈 리스트 생성
     buy_trades = []
 
+    # 현재 보유 중인 매수 거래들을 하나씩 꺼내 계산
     for lot in current_buy_lots:
+
+        # 원래 거래내역 한 행을 가져온다
         row = lot["row"]
+
+        # 해당 거래에서 현재까지 남아 있는 보유수량을 가져온다
         remaining_quantity = lot["remaining_quantity"]
 
-        executed_volume = row[8]
-        executed_funds = row[9]
-        paid_fee = row[10]
+        executed_volume = row[8]    # 체결수량
+        executed_funds = row[9]     # 체결금액
+        paid_fee = row[10]          # 수수료
 
+        # 매수가 계산
+        # 체결금액 ÷ 체결수량 = 1개당 매수가
         buy_price = executed_funds / executed_volume
 
-        # 원래 거래 중 남은 비율
+        # 남아 있는 비율 계산
+        # 원래 매수한 수량 중 현재 몇 %가 남아 있는지 계산
         remaining_ratio = (
             remaining_quantity / executed_volume
         )
 
+        # 남아 있는 매수금액 계산
+        # 현재 남은 수량에 해당하는 매수원금
         remaining_buy_amount = (
             executed_funds * remaining_ratio
         )
 
+        # 남아 있는 수수료 계산
+        # 현재 남은 수량에 해당하는 수수료
         remaining_fee_amount = (
             paid_fee * remaining_ratio
         )
 
+        # 현재 평가금액 계산
+        # 현재 가격으로 환산한 보유 자산의 가치
         evaluation_amount = (
             remaining_quantity * current_price
         )
 
+        # 평가손익 계산
+        # 현재 평가금액 - 남아 있는 매수금액
         evaluation_profit = (
             evaluation_amount - remaining_buy_amount
         )
 
+        # 남아 있는 매수금액
         if remaining_buy_amount == 0:
             profit_rate = Decimal("0")
         else:

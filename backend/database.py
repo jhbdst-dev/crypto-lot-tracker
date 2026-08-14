@@ -50,6 +50,7 @@ def save_trades(trades):
     for trade in trades:
 
         # 체결 수량이 없는 주문은 저장하지 않음
+        # (현재 사용하는 API에서는 거의 발생하지 않지만 방어적으로 처리)
         if trade["executed_volume"] == "0":
             continue
 

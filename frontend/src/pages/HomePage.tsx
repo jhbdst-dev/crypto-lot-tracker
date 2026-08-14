@@ -13,17 +13,17 @@ type Coin = {
     profit_rate: number
 }
 
-function HomePage() {
-
-    const [coins, setCoins] = useState<Coin[]>([])
-    
-    type Summary = {
+type Summary = {
         total_buy_amount: number
         total_evaluation_amount: number
         total_evaluation_profit: number
         total_profit_rate: number
         coin_count: number
     }
+
+function HomePage() {
+
+    const [coins, setCoins] = useState<Coin[]>([])
 
     const [summary, setSummary] = useState<Summary | null>(null)
 
