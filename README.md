@@ -18,7 +18,7 @@
 ## 🗺️ 프로젝트 구조
 
 <p align="center">
-  <img src="docs/images/project_architecture.png" width="350">
+  <img src="docs/images/project_architecture.png" width="800">
 </p>
 
 업비트 API에서 보유자산과 현재가를 조회하고,
