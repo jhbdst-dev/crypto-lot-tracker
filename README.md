@@ -15,6 +15,19 @@
 
 ---
 
+## 🗺️ 프로젝트 구조
+
+<p align="center">
+  <img src="docs/images/project_architecture.png" width="350">
+</p>
+
+업비트 API에서 보유자산과 현재가를 조회하고,
+거래내역은 PostgreSQL에 저장합니다.
+FastAPI에서 데이터를 가져와 계산 로직과 연결한 뒤
+홈 화면과 코인 상세 화면에 필요한 데이터를 제공합니다.
+
+---
+
 <a id="toc"></a>
 
 # 📑 목차
