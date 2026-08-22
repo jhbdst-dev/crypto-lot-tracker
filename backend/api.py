@@ -1,4 +1,5 @@
 from decimal import Decimal
+import requests
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,8 +15,10 @@ from backend.database import get_trades
 from backend.upbit_accounts import get_account_assets
 from backend.upbit_prices import get_current_prices
 
+# FastAPI 객체 생성
 app = FastAPI()
 
+# FastAPI 객체의 add_middleware() 메서드를 실행해서 CORSMiddleware 추가
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -24,13 +27,34 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def get_coin_names():
+    response = requests.get(
+        "https://api.upbit.com/v1/market/all"
+    )
+    data = response.json()
+
+    coin_names = {}
+
+    for item in data:
+        market = item["market"]
+        korean_name = item["korean_name"]
+
+        coin_names[market] = korean_name
+
+    return coin_names
+
 @app.get("/home")
 def get_home():
+
+    coin_names = get_coin_names()
+
     # 보유 코인, 보유수량, 평균 매수가 조회
     assets = get_account_assets()
 
     # 보유 코인들의 현재가 조회
     markets = list(assets.keys())
+
+    # 현재가 조회
     current_prices = get_current_prices(markets)
 
     # 계산 결과 저장
@@ -55,6 +79,7 @@ def get_home():
     for result in coin_results:
         coins.append({
             "market": result["market"],
+            "coin_name": coin_names[result["market"]],
             "quantity": float(result["quantity"]),
             "average_buy_price": float(result["average_buy_price"]),
             "current_price": float(result["current_price"]),
@@ -81,28 +106,14 @@ def get_home():
         "coins": coins,
     }
 
-"""
-현재 방식
-COIN_NAMES에 직접 작성
-
-↓
-
-개선 방향
-업비트 마켓 정보 API에서
-market + korean_name을 받아서 연결
-"""
-COIN_NAMES = {
-    "KRW-BTC": "비트코인",
-    "KRW-ETH": "이더리움",
-    "KRW-XRP": "리플",
-}
-
 @app.get("/coins/{market}")
 def get_coin_detail(market: str):
 
     market = market.upper()
 
-    if market not in COIN_NAMES:
+    coin_names = get_coin_names()
+
+    if market not in coin_names:
         raise HTTPException(
             status_code=404,
             detail=f"지원하지 않는 마켓입니다: {market}",
@@ -215,7 +226,7 @@ def get_coin_detail(market: str):
 
     return {
         "market": result["market"],
-        "coin_name": COIN_NAMES[market],
+        "coin_name": coin_names[market],
         "current_price": float(result["current_price"]),
         "quantity": float(result["quantity"]),
         "average_buy_price": float(

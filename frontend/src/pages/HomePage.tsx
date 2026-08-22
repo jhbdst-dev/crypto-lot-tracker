@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 
 type Coin = {
     market: string
+    coin_name: string
     quantity: number
     average_buy_price: number
     current_price: number
@@ -130,7 +131,7 @@ function HomePage() {
 
                                 <div className="coin-name">
                                     <h3>{symbol}</h3>
-                                    <p>{coin.market}</p>
+                                    <p>{coin.coin_name}</p>
                                 </div>
                             </div>
 
